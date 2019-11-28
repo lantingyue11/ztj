@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -10,10 +11,11 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let mainWindow;
+let newWindow;
 const winURL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:9080'
   : `file://${__dirname}/index.html`;
-
+const electron = require('electron');
 
 function createWindow() {
   /**
@@ -43,6 +45,26 @@ function createWindow() {
   });
 
   // mainWindow.webContents.openDevTools({ detach: true });
+  // eslint-disable-next-line no-undef
+  const displays = electron.screen.getAllDisplays();
+  const externalDisplay = displays.find(display => {
+    return display.bounds.x !== 0 || display.bounds.y !== 0;
+  });
+  if (externalDisplay) {
+    newWindow = new BrowserWindow({
+      fullscreen: false,
+      x: externalDisplay.bounds.x + 500,
+      y: externalDisplay.bounds.y + 50,
+      width: 1000,
+      height: 800,
+    });
+    newWindow.loadURL('https://www.baidu.com');
+    newWindow.webContents.openDevTools();
+  }
+  newWindow.on('closed', () => {
+    newWindow = null;
+  });
+
 }
 
 app.on('ready', () => {
