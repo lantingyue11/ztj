@@ -18,6 +18,7 @@ const routes = [
     component: Home,
     children: childrenRoutes,
   },
+
 ];
 
 export default routes;

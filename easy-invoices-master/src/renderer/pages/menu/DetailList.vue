@@ -11,6 +11,10 @@
             <FormItem label="备注">
                 <Input v-model="search.remark" style="width: 200px" clearable></Input>
             </FormItem>
+
+            <FormItem label="测试">
+                <Button type="primary" icon="ios-search" @click="sendTest" title="搜索"></Button>
+            </FormItem>
             <FormItem label="创建时间">
                 <DatePicker :options="datePickerOption" type="daterange"
                             style="width: 200px" v-model="search.createDateRange" split-panels
@@ -395,6 +399,12 @@ export default {
     getDataListOnPageChange(pageSize) {
       this.search.pageSize = pageSize;
       this.getDataList('search');
+    },
+    sendTest() {
+      this.$electron.ipcRenderer.send('imgUploadMain', {
+        id: 1,
+        siteId: 2,
+      });
     },
     // 新增
     add() {
