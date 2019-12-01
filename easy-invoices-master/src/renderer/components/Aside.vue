@@ -67,7 +67,7 @@
                 v-model="modalShow"
                 title="关于">
             <div class="aboutText">
-                <p><strong>easy-invoices {{version}}</strong></p>
+                <p><strong>跆拳道比赛系统{{version}}</strong></p>
                 <p>专注于桌面端单机版简易进销存业务，初心是帮助我父母提高工作效率。</p>
                 <p>该软件免费使用，并开源于<a href="javascript:void(0)"
                                   @click="openUrl('https://github.com/CaanDoll/easy-invoices')">github</a>，目前只构建了windows版本。

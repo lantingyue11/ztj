@@ -15,6 +15,9 @@ let newWindow;
 const winURL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:9080'
   : `file://${__dirname}/index.html`;
+
+const newWinURL = './src/renderer/index.html';
+
 const electron = require('electron');
 
 function createWindow() {
@@ -58,12 +61,15 @@ function createWindow() {
       width: 1000,
       height: 800,
     });
-    newWindow.loadURL('https://www.baidu.com');
+    newWindow.loadFile(newWinURL);
     newWindow.webContents.openDevTools();
   }
-  newWindow.on('closed', () => {
-    newWindow = null;
-  });
+  if (externalDisplay) {
+    newWindow.on('closed', () => {
+      newWindow = null;
+    });
+  }
+
 
 }
 
@@ -118,7 +124,11 @@ ipcMain.on('download', (event, downloadPath) => {
   });
 });
 
-
+ipcMain.on('imgUploadMain', (event, message) => {
+  // eslint-disable-next-line no-alert
+  console.log(message);
+  newWindow.webContents.send('imgUploadMsgFromMain', message);
+});
 /**
  * 自动更新
  */

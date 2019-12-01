@@ -5,7 +5,9 @@
         <div class="container">
             <router-view class="clearfix"></router-view>
         </div>
+
     </div>
+
 </template>
 <script>
 import Aside from '../components/Aside.vue';
@@ -20,6 +22,7 @@ export default {
     Header,
   },
 };
+
 </script>
 <style lang="less">
     @import "../assets/less/global.less";

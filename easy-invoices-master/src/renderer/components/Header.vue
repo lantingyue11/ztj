@@ -34,7 +34,7 @@
 <template>
     <header>
         <section class="left">
-            easy-invoices
+            跆拳道比赛系统
         </section>
         <section class="version">
             {{updateText}}

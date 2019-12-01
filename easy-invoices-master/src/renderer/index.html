@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    span{
+        font-size: 15px;
+    }
+    span i{
+        color: #077bbe;
+    }
+    .timer{
+        height: 100px;
+        background-color: #ff9900;
+    }
+    .clock_style{
+        font-size: 40px;
+        color: #ffffff;
+        text-align: center;
+    }
+
+    .vsSign{
+        font-size: 50px;
+        font-weight: bold;
+        color: #8391a5;
+        text-align: center;
+    }
+    .userName1{
+        margin-top: 20px;
+        font-size: 30px;
+        background-color: #2d8cf0;
+        border-radius: 5px;
+        color: #ffffff;
+        line-height: 30px;
+        text-align: center;
+    }
+
+    .userName2{
+        margin-top: 20px;
+        font-size: 30px;
+        line-height: 30px;
+        background-color: #19be6b;
+        border-radius: 5px;
+        color: #ffffff;
+        text-align: center;
+    }
+    .grade1{
+        font-size: 60px;
+        color: #5b6270;
+        text-align: center;
+        padding-top: 20px;
+    }
+    .grade2{
+        font-size: 60px;
+        color: #5b6270;
+        text-align: center;
+        padding-top: 20px;
+    }
+    .timer_time{
+        font-size: 30px;
+        line-height: 40px;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        margin-top: -10px;
+    }
+    .left-koufeng{
+        margin-top: 90px;
+    }
+    .left-koufeng p{
+        font-size: 15px;
+        text-align: center;
+    }
+</style>
+<body>
+<div style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;height: 260px;}">
+    <div style="width: 16%;display:block; float: left;">
+        <div class="left-koufeng">
+            <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="gold">1</Tag></span></p>
+            <p>感应数&nbsp; &nbsp;<span><Tag color="gold">2</Tag></span></p>
+        </div>
+    </div>
+    <div style="width: 20%;display:block; float: left;">
+        <div class="userName1">
+            <span>曾卫龙</span>
+        </div>
+        <div class="grade1">
+            6
+        </div>
+    </div>
+    <div style="width: 25%;display:block; float: left;">
+        <div class="vsSign"><p>VS</p></div>
+        <div class="timer">
+            <div class="clock_style"><Icon type="ios-time" /></div>
+            <div class="timer_time">
+                01:33:55
+            </div>
+        </div>
+    </div>
+    <div style="width: 20%;display:block; float: left;">
+        <div class="userName2">
+            <span>张田静</span>
+        </div>
+        <div class="grade2">
+            1
+        </div>
+    </div>
+    <div style="width: 16%;display:block; float: left;">
+        <div class="left-koufeng">
+            <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="gold">1</Tag></span></p>
+            <p>感应数&nbsp; &nbsp;<span><Tag color="gold">2</Tag></span></p>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+  const ipcRenderer = require('electron').ipcRenderer;
+  ipcRenderer.on('imgUploadMsgFromMain', (event, msg) => {
+    console.log(msg);
+    /*document.getElementById('message1').innerText = msg.id;
+    document.getElementById('message2').innerText = msg.siteId;*/
+  });
+</script>
+</html>
