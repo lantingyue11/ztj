@@ -5,6 +5,18 @@
     <title>Title</title>
 </head>
 <style>
+    .background-index{
+        background: url("imgs/timg2.jpg");
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        -webkit-filter: blur(6px);
+        filter: blur(6px);
+        background-size:100%;
+        position: absolute;
+    }
     span{
         font-size: 15px;
     }
@@ -12,26 +24,28 @@
         color: #077bbe;
     }
     .timer{
-        height: 100px;
-        background-color: #ff9900;
-    }
-    .clock_style{
         font-size: 40px;
-        color: #ffffff;
+        line-height: 40px;
+        border-radius:5px;
+        background-color: #ff9900;
+        color: white;
+        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
         text-align: center;
+        padding: 10px;
     }
+
 
     .vsSign{
         font-size: 50px;
         font-weight: bold;
-        color: #8391a5;
+        color: #f2edf7;
         text-align: center;
     }
     .userName1{
         margin-top: 20px;
         font-size: 30px;
         background-color: #2d8cf0;
-        border-radius: 5px;
+        border-radius: 30px 0px  0px 30px;
         color: #ffffff;
         line-height: 30px;
         text-align: center;
@@ -41,20 +55,20 @@
         margin-top: 20px;
         font-size: 30px;
         line-height: 30px;
-        background-color: #19be6b;
-        border-radius: 5px;
+        background-color: #ed4014;
+        border-radius: 0px 30px  30px 0px;
         color: #ffffff;
         text-align: center;
     }
     .grade1{
-        font-size: 60px;
-        color: #5b6270;
+        font-size: 90px;
+        color: #f2edf7;
         text-align: center;
         padding-top: 20px;
     }
     .grade2{
-        font-size: 60px;
-        color: #5b6270;
+        font-size: 90px;
+        color: #f2edf7;
         text-align: center;
         padding-top: 20px;
     }
@@ -67,19 +81,54 @@
         margin-top: -10px;
     }
     .left-koufeng{
-        margin-top: 90px;
+        margin-top: 100px;
     }
     .left-koufeng p{
-        font-size: 15px;
+        font-size: 20px;
         text-align: center;
+        color: white;
+        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    }
+    .left-koufeng p span{
+        font-size: 30px;
+    }
+    .title_header{
+        color: white;
+        text-align: center;
+        line-height: 5px;
+        margin-bottom: 60px;
+    }
+    .title_header .p1{
+        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        font-size: 55px;
+    }
+
+    .title_header .p2{
+        font-size: 20px;
+    }
+    .realtime{
+        font-size: 30px;
+        line-height: 35px;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        margin-top: -10px;
+        background-color: white;
     }
 </style>
 <body>
-<div style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;height: 260px;}">
+<div class="background-index">
+</div>
+<div >
+    <div class="title_header">
+        <p class="p1">跆拳道比赛</p>
+        <p class="p2">2019-12-02 02:14 周一</p>
+        <p class="p2">A场馆</p>
+    </div>
     <div style="width: 16%;display:block; float: left;">
         <div class="left-koufeng">
-            <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="gold">1</Tag></span></p>
-            <p>感应数&nbsp; &nbsp;<span><Tag color="gold">2</Tag></span></p>
+            <p>扣&nbsp&nbsp&nbsp分:&nbsp;<span>1</span></p>
+            <p>感应数:&nbsp;<span>2</span></p>
         </div>
     </div>
     <div style="width: 20%;display:block; float: left;">
@@ -91,12 +140,12 @@
         </div>
     </div>
     <div style="width: 25%;display:block; float: left;">
+        <div class="realtime">
+           <p>0 : 00</p>
+        </div>
         <div class="vsSign"><p>VS</p></div>
         <div class="timer">
-            <div class="clock_style"><Icon type="ios-time" /></div>
-            <div class="timer_time">
-                01:33:55
-            </div>
+                ROUND  1
         </div>
     </div>
     <div style="width: 20%;display:block; float: left;">
@@ -109,11 +158,12 @@
     </div>
     <div style="width: 16%;display:block; float: left;">
         <div class="left-koufeng">
-            <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="gold">1</Tag></span></p>
-            <p>感应数&nbsp; &nbsp;<span><Tag color="gold">2</Tag></span></p>
+            <p>扣&nbsp&nbsp&nbsp分:&nbsp;<span>1</span></p>
+            <p>感应数:&nbsp;<span>2</span></p>
         </div>
     </div>
 </div>
+
 </body>
 <script>
   const ipcRenderer = require('electron').ipcRenderer;
