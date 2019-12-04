@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>投屏</title>
 </head>
 <style>
     .background-index{
@@ -141,7 +141,7 @@
     </div>
     <div style="width: 25%;display:block; float: left;">
         <div class="realtime">
-           <p>0 : 00</p>
+           <p id="show"></p>
         </div>
         <div class="vsSign"><p>VS</p></div>
         <div class="timer">
@@ -166,11 +166,44 @@
 
 </body>
 <script>
-  const ipcRenderer = require('electron').ipcRenderer;
+  /*const ipcRenderer = require('electron').ipcRenderer;
   ipcRenderer.on('imgUploadMsgFromMain', (event, msg) => {
     console.log(msg);
-    /*document.getElementById('message1').innerText = msg.id;
-    document.getElementById('message2').innerText = msg.siteId;*/
-  });
+    /!*document.getElementById('message1').innerText = msg.id;
+    document.getElementById('message2').innerText = msg.siteId;*!/
+  });*/
+  var ifCutOff = false;
+  TimeDown("show", 90);
+
+
+  function TimeDown(id, diffTime) {
+    //当前时间
+    var nowDate = new Date();
+    //相差的总秒数
+    var totalSeconds = diffTime;
+    //天数
+    var days = Math.floor(totalSeconds / (60 * 60 * 24));
+    //取模（余数）
+    var modulo = totalSeconds % (60 * 60 * 24);
+    //小时数
+    var hours = Math.floor(modulo / (60 * 60));
+    modulo = modulo % (60 * 60);
+    //分钟
+    var minutes = Math.floor(modulo / 60);
+    //秒
+    var seconds = modulo % 60;
+    //输出到页面
+    document.getElementById(id).innerHTML =  minutes + ":" + seconds;
+    //延迟一秒执行自己
+    setTimeout(function () {
+      if(!ifCutOff){
+        diffTime = diffTime-1;
+        TimeDown(id, diffTime);
+      }
+
+    }, 1000)
+  }
+
+
 </script>
 </html>
