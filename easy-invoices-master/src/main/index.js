@@ -55,7 +55,7 @@ function createWindow() {
   });
   if (externalDisplay) {
     newWindow = new BrowserWindow({
-      fullscreen: false,
+      fullscreen: true,
       x: externalDisplay.bounds.x + 500,
       y: externalDisplay.bounds.y + 50,
       width: 1000,
