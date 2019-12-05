@@ -50,7 +50,7 @@
         <div class="setting-panel">
         <h3>比赛设置</h3>
         <br>
-        <Form :model="formInline" :label-width="80" ref="formInline" :rules="ruleInline" inline>
+        <Form  :label-width="80" ref="formInline" inline>
             <FormItem label="局时/秒">
                 <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..." clearable></Input>
             </FormItem>
@@ -125,16 +125,15 @@
     </div>
     <br>
     <div class="setting-panel">
-        <h3>比赛文件设置</h3>
+        <h3>比赛文件上传</h3>
         <br>
         <Form :model="formItem" :label-width="80">
             <FormItem :label-width="10">
-                <Button style="margin-left:5px;" type="primary" icon="plus-round" @click="add" title="创建"></Button>
-                <Button style="margin-left:5px;" type="primary" icon="ios-upload-outline" @click="downloadExcel"
-                        title="导出" :loading="downloadExcelLoading"></Button>
+                <input type="file"  id="file" :accept="SheetJSFT" ref="file" />
+
             </FormItem>
             <FormItem>
-                <Button type="primary">保存</Button>
+                <Button type="primary" @click="getFile">保存</Button>
                 <Button style="margin-left: 8px">重置</Button>
             </FormItem>
         </Form>
@@ -143,6 +142,19 @@
 </template>
 
 <script>
+import XLSX from 'xlsx';
+
+const make_cols = refstr => Array(XLSX.utils.decode_range(refstr).e.c + 1)
+  .fill(0)
+  .map((x, i) => ({ name: XLSX.utils.encode_col(i), key: i }));
+
+const _SheetJSFT = [
+  'xlsx', 'xlsb', 'xlsm', 'xls', 'xml', 'csv',
+].map(function(x) {
+  return '.' + x;
+})
+  .join(',');
+
 export default {
   name: 'Setting',
   data() {
@@ -158,9 +170,38 @@ export default {
         slider: [ 20, 50 ],
         textarea: '',
       },
+      SheetJSFT: _SheetJSFT,
     };
   },
+  methods: {
+    getFile() {
+      const files = this.$refs.file.files;
+      if (files && files[0]) {
+        this._file(files[0]);
+      }
+    },
+    _file(file) {
+      /* Boilerplate to set up FileReader */
+      const reader = new FileReader();
+      reader.onload = e => {
+        /* Parse data */
+        const bstr = e.target.result;
+        const wb = XLSX.read(bstr, { type: 'binary' });
+        /* Get first worksheet */
+        const wsname = wb.SheetNames[0];
+        const ws = wb.Sheets[wsname];
+        /* Convert array of arrays */
+        const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+        console.log(data);
+        /* Update state */
+        this.data = data;
+        this.cols = make_cols(ws['!ref']);
+      };
+      reader.readAsBinaryString(file);
+    },
+  },
 };
+
 </script>
 
 <style>
