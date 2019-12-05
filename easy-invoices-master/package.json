@@ -78,6 +78,7 @@
     ]
   },
   "dependencies": {
+    "js-xlsx": "^0.8.22",
     "sqlite3": "^4.1.0"
   },
   "devDependencies": {
@@ -134,6 +135,7 @@
     "webpack": "^3.5.2",
     "webpack-dev-server": "^2.7.1",
     "webpack-hot-middleware": "^2.18.2",
-    "yorkie": "^1.0.3"
+    "yorkie": "^1.0.3",
+    "xlsx": "*"
   }
 }
