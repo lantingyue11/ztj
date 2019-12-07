@@ -144,10 +144,6 @@
 <script>
 import XLSX from 'xlsx';
 
-const make_cols = refstr => Array(XLSX.utils.decode_range(refstr).e.c + 1)
-  .fill(0)
-  .map((x, i) => ({ name: XLSX.utils.encode_col(i), key: i }));
-
 const _SheetJSFT = [
   'xlsx', 'xlsb', 'xlsm', 'xls', 'xml', 'csv',
 ].map(function(x) {
@@ -192,12 +188,65 @@ export default {
         const ws = wb.Sheets[wsname];
         /* Convert array of arrays */
         const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
-        console.log(data);
         /* Update state */
-        this.data = data;
-        this.cols = make_cols(ws['!ref']);
+        this.getDataIntoDb(data);
       };
       reader.readAsBinaryString(file);
+    },
+    getDataIntoDb(data) {
+      this.deleteAllData();
+      console.log(data);
+      for (let i = 1; i < data.length; i++) {
+        const game_id = data[i][0];
+        const total_round = parseInt(data[i][1]);
+        const round_num = data[i][2];
+        const address = data[i][3];
+        const address_id = data[i][4];
+        const level = data[i][5];
+        const blue_id = data[i][7];
+        const blue_name = data[i][8];
+        const blue_unit = data[i][9];
+        const red_id = data[i][10];
+        const red_name = data[i][11];
+        const red_unit = data[i][12];
+        const status = data[i][13];
+        const insertSQL = `INSERT INTO GAME_INFO (game_id,total_round,round_num,address,address_id,level,blue_id,blue_name,blue_unit,red_id,red_name,red_unit,status)
+          VALUES ('${game_id}','${total_round}','${round_num}','${address}','${address_id}','${level}','${blue_id}','${blue_name}','${blue_unit}','${red_id}','${red_name}','${red_unit}','${status}')`;
+        this.insertData(insertSQL);
+      }
+      this.$Message.success({
+        content: '导入成功',
+      });
+    },
+    insertData(sql) {
+      this.$logger(sql);
+      this.$db.run(sql, err => {
+        if (err) {
+          this.$logger(err);
+          this.$Notice.error({
+            title: '新增失败',
+            desc: err,
+          });
+          this.$db.run('ROLLBACK');
+        }
+      });
+      this.$db.run('COMMIT');
+      this.modalShow = false;
+    },
+    deleteAllData() {
+      const sql = 'DELETE FROM GAME_INFO';
+      this.$logger(sql);
+      this.$db.run(sql, err => {
+        if (err) {
+          this.$logger(err);
+          this.$Notice.error({
+            title: '删除失败',
+            desc: err,
+          });
+          this.$db.run('ROLLBACK');
+        }
+      });
+      this.$db.run('COMMIT');
     },
   },
 };

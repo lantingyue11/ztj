@@ -1,7 +1,10 @@
 <template>
     <div>
+        <div id="tip">
+            <p id="showMessage">message</p>
+        </div>
         <Row>
-            <Col span="18">
+            <Col span="16">
                 <Row>
                     <Col span="24">
                         <Row style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;}">
@@ -13,7 +16,7 @@
 
                     </Col>
                 </Row>
-                <Row style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;height: 260px;}">
+                <Row style="{display: block;padding: 5px;  background: #ffffff; border-radius: 5px;margin: 3px;height: 260px;}">
                     <Col span="4">
                         <div class="left-koufeng">
                            <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="gold">1</Tag></span></p>
@@ -52,9 +55,24 @@
                         </div>
                     </Col>
                 </Row>
+                <Row style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;}">
+                    <Col span="11">
+                        <Button>读秒</Button>
+                        <Button>休息计时</Button>
+                        <Button>下一局</Button>
+                    </Col>
+                    <Col span="4">
+                        <Button type="primary" >开始</Button>
+                    </Col>
+                    <Col span="9">
+                        <Button>加时</Button>
+                        <Button>60s计时</Button>
+                        <Button>结束</Button>
+                    </Col>
+                </Row>
 
             </Col>
-            <Col span="5" style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;height: 298px;}">
+            <Col span="7" style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;height: 298px;}">
                 <Row>
                     <Col span="24">
                         <Dropdown style="padding-bottom: 10px;">
@@ -78,49 +96,87 @@
             </Col>
         </Row>
         <Row>
-            <Col span="7" style="{display: block;padding: 2px;  background: #fff; border-radius: 5px;margin-top: 5px;margin-left: 3px;height: 298px;}">
-                <Row>
-                    <Col span="24">
-                        <h1 style="margin-top: 5px;margin-left: 20px;">手动修改分数</h1>
-                    </Col>
-                </Row>
+            <Col span="16" style="{display: block;padding: 2px;  background: #fff; border-radius: 5px;margin-top: 2px;margin-left: 3px;height: 200px;}">
                 <Row class="team_grade">
-                    <Col span="8">
-                        <Button type="primary">曾伟龙队</Button>
+                    <Col span="11">
+                        <div>
+                            <Dropdown>
+                                <Button type="primary">
+                                    青方判胜
+                                    <Icon type="ios-arrow-down"></Icon>
+                                </Button>
+                                <DropdownMenu slot="list">
+                                    <DropdownItem name="ptf">比分胜/PTF</DropdownItem>
+                                    <DropdownItem name="ptg">分差优势胜/PTG</DropdownItem>
+                                    <DropdownItem name="sdp">加时得分胜/SDP</DropdownItem>
+                                    <DropdownItem name="sup">优势判定胜/SUP</DropdownItem>
+                                    <DropdownItem name="rsc">终止比赛胜/RSC</DropdownItem>
+                                    <DropdownItem name="pun">犯规胜/PUN</DropdownItem>
+                                    <DropdownItem name="ko">击倒胜/K.O</DropdownItem>
+                                    <DropdownItem name="wdp">弃权胜/WDR</DropdownItem>
+                                    <DropdownItem name="dsq">失格胜/DSQ</DropdownItem>
+                                    <DropdownItem name="wiw">体重胜/WIW</DropdownItem>
+                                    <DropdownItem name="draw">平局结束/DRAW</DropdownItem>
+                                    <DropdownItem name="cancel">取消</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <ButtonGroup >
+                                <Button >
+                                    -
+                                    &nbsp;&nbsp;扣分
+                                </Button>
+                                <Button >
+                                    加分&nbsp;&nbsp;
+                                    +
+                                </Button>
+                            </ButtonGroup>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <Button type="warning">警告</Button>
+                            <Button type="success">撤销警告</Button>
+                        </div>
                     </Col>
-                    <Col span="16">
-                        <ButtonGroup >
-                            <Button >
-                                -
-                                &nbsp;&nbsp;扣分
-                            </Button>
-                            <Button >
-                                加分&nbsp;&nbsp;
-                                +
-                            </Button>
-                        </ButtonGroup>
-                    </Col>
-                </Row>
-                <Row class="team_grade">
-                    <Col span="8">
-                        <Button type="success"><Icon type="md-man" />张田静队</Button>
-                    </Col>
-                    <Col span="16">
-                        <ButtonGroup >
-                            <Button >
-                                -
-                                &nbsp;&nbsp;扣分
-                            </Button>
-                            <Button >
-                                加分&nbsp;&nbsp;
-                                +
-                            </Button>
-                        </ButtonGroup>
+                    <Col span="2"></Col>
+                    <Col span="11">
+                        <div style="float: right;width: 100%;">
+                            <Dropdown style="margin-left: 177px">
+                                <Button type="error">
+                                    红方判胜
+                                    <Icon type="ios-arrow-down"></Icon>
+                                </Button>
+                                <DropdownMenu slot="list">
+                                    <DropdownItem name="ptf">比分胜/PTF</DropdownItem>
+                                    <DropdownItem name="ptg">分差优势胜/PTG</DropdownItem>
+                                    <DropdownItem name="sdp">加时得分胜/SDP</DropdownItem>
+                                    <DropdownItem name="sup">优势判定胜/SUP</DropdownItem>
+                                    <DropdownItem name="rsc">终止比赛胜/RSC</DropdownItem>
+                                    <DropdownItem name="pun">犯规胜/PUN</DropdownItem>
+                                    <DropdownItem name="ko">击倒胜/K.O</DropdownItem>
+                                    <DropdownItem name="wdp">弃权胜/WDR</DropdownItem>
+                                    <DropdownItem name="dsq">失格胜/DSQ</DropdownItem>
+                                    <DropdownItem name="wiw">体重胜/WIW</DropdownItem>
+                                    <DropdownItem name="draw">平局结束/DRAW</DropdownItem>
+                                    <DropdownItem name="cancel">取消</DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        </div >
+                        <div style="float: right;margin-top: 10px;">
+                            <ButtonGroup >
+                                <Button>-&nbsp;&nbsp;扣分</Button>
+                                <Button >加分&nbsp;&nbsp;+</Button>
+                            </ButtonGroup>
+                        </div>
+                        <br>
+                        <div style="float: right;margin-top: 10px;">
+                            <Button type="warning">警告</Button>
+                            <Button type="success">撤销警告</Button>
+                        </div>
                     </Col>
                 </Row>
             </Col>
-            <Col span="9" style="{display: block;padding: 2px;  background: #fff; border-radius: 5px;margin-top: 5px;margin-left: 2px;height: 298px;}">col-6</Col>
-            <Col span="7" style="{display: block;padding: 3px;  background: #fff; border-radius: 5px;margin-top: 5px;margin-left: 2px;height: 298px;}">col-6</Col>
+            <Col span="7" style="{display: block;padding: 3px;  background: #fff; border-radius: 5px;margin-top: 2px;margin-left: 2px;height: 200px;}">col-6</Col>
         </Row>
         <br>
         <Row>
@@ -167,6 +223,23 @@ export default {
 };
 </script>
 <style >
+    #tip{
+        text-align: center;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(61, 61, 61, 0.5);
+        z-index: 99999;
+        display: none;
+    }
+    #tip #showMessage{
+        margin-top:200px;
+        font-size: 80px;
+        font-weight: bold;
+        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        text-align: center;
+        color: white;
+    }
     span{
       font-size: 15px;
     }
@@ -203,7 +276,7 @@ export default {
         margin-top: 20px;
         font-size: 30px;
         line-height: 30px;
-        background-color: #19be6b;
+        background-color: #ed4014;
         border-radius: 5px;
         color: #ffffff;
         text-align: center;
