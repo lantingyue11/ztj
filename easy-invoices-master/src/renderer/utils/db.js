@@ -62,6 +62,54 @@ db.serialize(() => {
     )`, err => {
     logger(err);
   });
+  /**
+   * 比赛信息表 GAME_INFO
+   */
+  db.run(`CREATE TABLE GAME_INFO(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    game_id VARCHAR(25) NOT NULL,
+    total_round INTEGER NOT NULL,
+    round_num VARCHAR(25) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    address_id VARCHAR(20) NOT NULL,
+    level VARCHAR(25) NOT NULL,
+    blue_id VARCHAR(25),
+    blue_name VARCHAR(255) NOT NULL,
+    blue_unit VARCHAR(255),
+    red_id VARCHAR(25),
+    red_name VARCHAR(255) NOT NULL,
+    red_unit VARCHAR(255),
+    status VARCHAR(25) NOT NULL,
+    winner VARCHAR(25),
+    win_way VARCHAR(255),
+    blue_score INTEGER,
+    red_score INTEGER,
+    blue_points INTEGER,
+    red_points INTEGER,
+    blue_score1 INTEGER,
+    red_score1 INTEGER,
+    blue_points1 INTEGER,
+    red_points1 INTEGER,
+    blue_score2 INTEGER,
+    red_score2 INTEGER,
+    blue_points2 INTEGER,
+    red_points2 INTEGER,
+    blue_score3 INTEGER,
+    red_score3 INTEGER,
+    blue_points3 INTEGER,
+    red_points3 INTEGER,
+    red_points2 INTEGER,
+    blue_score4 INTEGER,
+    red_score4 INTEGER,
+    blue_points4 INTEGER,
+    red_points4 INTEGER,
+    yijian INTEGER,
+    erjian INTEGER,
+    sanjian INTEGER,
+    remark VARCHAR(255)
+    )`, err => {
+    logger(err);
+  });
 });
 
 export default db;
