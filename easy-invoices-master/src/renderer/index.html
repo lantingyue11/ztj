@@ -135,7 +135,7 @@
         <div class="userName1">
             <span>曾卫龙</span>
         </div>
-        <div class="grade1">
+        <div class="grade1" id="blue_grade">
             6
         </div>
     </div>
@@ -152,7 +152,7 @@
         <div class="userName2">
             <span>张田静</span>
         </div>
-        <div class="grade2">
+        <div class="grade2" id="red_grade">
             1
         </div>
     </div>
@@ -166,12 +166,22 @@
 
 </body>
 <script>
-  /*const ipcRenderer = require('electron').ipcRenderer;
-  ipcRenderer.on('imgUploadMsgFromMain', (event, msg) => {
-    console.log(msg);
-    /!*document.getElementById('message1').innerText = msg.id;
-    document.getElementById('message2').innerText = msg.siteId;*!/
-  });*/
+  const ipcRenderer = require('electron').ipcRenderer;
+
+  window.onload = function() {
+    getMessage();
+    function getMessage() {
+      ipcRenderer.on('imgUploadMsgFromMain', (event, msg) => {
+        if(msg.person == 1){
+          document.getElementById('blue_grade').innerText = msg.point;
+        }else{
+          document.getElementById('red_grade').innerText = msg.point;
+        }
+      });
+    };
+
+  }
+
   var ifCutOff = false;
   TimeDown("show", 90);
 
@@ -196,7 +206,7 @@
     document.getElementById(id).innerHTML =  minutes + ":" + seconds;
     //延迟一秒执行自己
     setTimeout(function () {
-      if(!ifCutOff){
+      if(!ifCutOff && diffTime > 0){
         diffTime = diffTime-1;
         TimeDown(id, diffTime);
       }

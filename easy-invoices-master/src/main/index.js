@@ -123,7 +123,7 @@ ipcMain.on('download', (event, downloadPath) => {
   });
 });
 
-ipcMain.on('imgUploadMain', (event, message) => {
+ipcMain.on('updateIndexGrade', (event, message) => {
   // eslint-disable-next-line no-alert
   console.log(message);
   newWindow.webContents.send('imgUploadMsgFromMain', message);

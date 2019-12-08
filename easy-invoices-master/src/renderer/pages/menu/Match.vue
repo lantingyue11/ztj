@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div id="tip">
-            <p id="showMessage">message</p>
+        <div id="tip" v-show="show">
+            <p id="showMessage">{{message}}</p>
         </div>
         <Row>
             <Col span="16">
@@ -27,16 +27,16 @@
                         <div class="userName1">
                             <span>曾卫龙</span>
                         </div>
-                        <div class="grade1">
-                            6
+                        <div class="grade1" id="blue_grade">
+                            0
                         </div>
                     </Col>
                     <Col span="6">
                         <div class="vsSign"><p>VS</p></div>
                         <div class="timer">
-                            <div class="clock_style"><Icon type="ios-time" /></div>
+                            <div class="clock_style">Round 1</div>
                             <div class="timer_time">
-                                01:33:55
+                                {{timediff}}
                             </div>
                         </div>
                     </Col>
@@ -44,8 +44,8 @@
                         <div class="userName2">
                             <span>张田静</span>
                         </div>
-                        <div class="grade2">
-                            1
+                        <div class="grade2" id="red_grade">
+                            0
                         </div>
                     </Col>
                     <Col span="4">
@@ -54,19 +54,35 @@
                             <p>感应数&nbsp; &nbsp;<span><Tag color="gold">2</Tag></span></p>
                         </div>
                     </Col>
+                    <Col span="12" style="border: 1px solid #cccccc;margin-top: 30px">
+                        <Row>
+                            <Col span="6">a</Col>
+                            <Col span="6">b</Col>
+                            <Col span="6">c</Col>
+                            <Col span="6">d</Col>
+                        </Row>
+                    </Col>
+                    <Col span="12" style="border: 1px solid #cccccc;margin-top: 30px">
+                        <Row>
+                            <Col span="6">a</Col>
+                            <Col span="6">b</Col>
+                            <Col span="6">c</Col>
+                            <Col span="6">d</Col>
+                        </Row>
+                    </Col>
                 </Row>
                 <Row style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;}">
                     <Col span="11">
                         <Button>读秒</Button>
-                        <Button>休息计时</Button>
+                        <Button @click="countdown('showMessage',10)">休息计时</Button>
                         <Button>下一局</Button>
                     </Col>
                     <Col span="4">
-                        <Button type="primary" >开始</Button>
+                        <Button type="primary" @click="created">开始</Button>
                     </Col>
                     <Col span="9">
                         <Button>加时</Button>
-                        <Button>60s计时</Button>
+                        <Button @click="countdown('showMessage',60)">60s计时</Button>
                         <Button>结束</Button>
                     </Col>
                 </Row>
@@ -123,19 +139,19 @@
                         </div>
                         <div style="margin-top: 10px;">
                             <ButtonGroup >
-                                <Button >
+                                <Button @click="devicePoint('blue')">
                                     -
                                     &nbsp;&nbsp;扣分
                                 </Button>
-                                <Button >
+                                <Button @click="addPoint('blue')">
                                     加分&nbsp;&nbsp;
                                     +
                                 </Button>
                             </ButtonGroup>
                         </div>
                         <div style="margin-top: 10px;">
-                            <Button type="warning">警告</Button>
-                            <Button type="success">撤销警告</Button>
+                            <Button type="warning"  @click="addWarning('red')">警告</Button>
+                            <Button type="success" @click="deleteWarning('red')">撤销警告</Button>
                         </div>
                     </Col>
                     <Col span="2"></Col>
@@ -164,8 +180,8 @@
                         </div >
                         <div style="float: right;margin-top: 10px;">
                             <ButtonGroup >
-                                <Button>-&nbsp;&nbsp;扣分</Button>
-                                <Button >加分&nbsp;&nbsp;+</Button>
+                                <Button @click="devicePoint('red')">-&nbsp;&nbsp;扣分</Button>
+                                <Button @click="addPoint('red')">加分&nbsp;&nbsp;+</Button>
                             </ButtonGroup>
                         </div>
                         <br>
@@ -194,6 +210,7 @@
 export default {
   data() {
     return {
+      show: false,
       columns1: [
         {
           title: 'Name',
@@ -218,9 +235,131 @@ export default {
           status: '等待',
         },
       ],
+      timer: null,
+      message: '',
+      timeValue: 0,
+      timediff: '00:00',
     };
   },
+  methods: {
+    /*
+     * 加分
+     */
+    addPoint(name) {
+      if (name === 'blue') {
+        const value = parseInt(document.getElementById('blue_grade').innerText);
+        const newValue = value + 1;
+        document.getElementById('blue_grade').innerText = newValue;
+        this.sendMessage(1, newValue);
+      } else if (name === 'red') {
+        const value = parseInt(document.getElementById('red_grade').innerText);
+        const newValue = value + 1;
+        document.getElementById('red_grade').innerText = newValue;
+        this.sendMessage(2, newValue);
+      } else {
+        this.$Notice.error({
+          title: '加分遇到未知错误！',
+        });
+      }
+    },
+    // 减分
+    devicePoint(name) {
+      if (name === 'blue') {
+        const value = parseInt(document.getElementById('blue_grade').innerText);
+        const newValue = value - 1;
+        if (newValue < 0) {
+          console.log('青方分数小于零');
+        } else {
+          this.sendMessage(1, newValue);
+          document.getElementById('blue_grade').innerText = newValue;
+        }
+      } else if (name === 'red') {
+        const value = parseInt(document.getElementById('red_grade').innerText);
+        const newValue = value - 1;
+        if (newValue < 0) {
+          console.log('青方分数小于零');
+        } else {
+          this.sendMessage(2, newValue);
+          document.getElementById('red_grade').innerText = newValue;
+        }
+      } else {
+        this.$Notice.error({
+          title: '减分遇到未知错误！',
+        });
+      }
+    },
+    // 发送分数信息
+    sendMessage(who, grade) {
+      this.$electron.ipcRenderer.send('updateIndexGrade', {
+        person: who,
+        point: grade,
+      });
+    },
+    // 计数
+    countdown(id, count) {
+      if (!this.timer) {
+        this.show = true;
+        this.timeValue = count;
+        this.timer = setInterval(() => {
+          if (this.timeValue > 0 && this.timeValue <= count) {
+            this.message = this.timeValue + ' S';
+            console.log(this.message);
+            this.timeValue--;
+          } else {
+            this.show = false;
+            clearInterval(this.timer);
+            this.timer = null;
+            this.message = '';
+          }
+        }, 1000);
+      }
+    },
+    // 计时
+    countTime(diffTime) {
+      if (!this.timer) {
+        let value = diffTime;
+        this.timer = setInterval(() => {
+          if (value > 0 && value <= diffTime) {
+            let modulo = value % (60 * 60 * 24);
+            modulo = modulo % (60 * 60);
+            // 分钟
+            const minutes = Math.floor(modulo / 60);
+            const seconds = modulo % 60;
+            this.timediff = minutes + ':' + seconds;
+            console.log(this.message);
+            value--;
+          } else {
+            clearInterval(this.timer);
+            this.timer = null;
+            this.timediff = '00:00';
+          }
+        }, 1000);
+      }
+    },
+    created() {
+      this.countTime(90);
+    },
+
+    // 警告
+    addWarning(name) {
+      if (name === 'blue') {
+        console.log('blue');
+      } else {
+        console.log('red');
+      }
+    },
+
+    // 撤销警告
+    deleteWarning(name) {
+      if (name === 'blue') {
+        console.log('blue');
+      } else {
+        console.log('red');
+      }
+    },
+  },
 };
+
 </script>
 <style >
     #tip{
@@ -230,13 +369,13 @@ export default {
         width: 100%;
         background-color: rgba(61, 61, 61, 0.5);
         z-index: 99999;
-        display: none;
+        display: block;
     }
     #tip #showMessage{
         margin-top:200px;
         font-size: 80px;
         font-weight: bold;
-        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        font-family: Arial;
         text-align: center;
         color: white;
     }
@@ -251,7 +390,8 @@ export default {
         background-color: #ff9900;
     }
     .clock_style{
-        font-size: 40px;
+        font-size: 25px;
+        line-height: 50px;
         color: #ffffff;
         text-align: center;
     }
@@ -295,7 +435,7 @@ export default {
     }
     .timer_time{
         font-size: 30px;
-        line-height: 40px;
+        line-height: 60px;
         text-align: center;
         color: white;
         font-weight: bold;
