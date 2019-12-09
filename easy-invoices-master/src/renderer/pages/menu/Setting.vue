@@ -81,40 +81,28 @@
             <FormItem label="当前时间">
                 <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
             </FormItem>
-            <FormItem label="最大时差">
+            <FormItem label="最大分差">
                 <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
             </FormItem>
-            <FormItem label="蓝方护具号">
+            <FormItem label="青方护具号">
                 <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
             </FormItem>
-            <FormItem label="最大时差">
+            <FormItem label="裁判时差">
                 <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
             </FormItem>
-            <FormItem label="蓝方护具号">
+            <FormItem label="红方护具号">
                 <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
             </FormItem>
-            <FormItem label="最大时差">
+            <FormItem label="得分区间">
                 <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
             </FormItem>
-            <FormItem label="蓝方护具号">
+            <FormItem label="青方头盔号">
                 <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
             </FormItem>
-            <FormItem label="最大时差">
+            <FormItem label="扣分个数">
                 <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
             </FormItem>
-            <FormItem label="蓝方护具号">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
-            </FormItem>
-            <FormItem label="最大时差">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
-            </FormItem>
-            <FormItem label="蓝方护具号">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
-            </FormItem>
-            <FormItem label="最大时差">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
-            </FormItem>
-            <FormItem label="蓝方护具号">
+            <FormItem label="红方头盔号">
                 <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
             </FormItem>
             <FormItem>
