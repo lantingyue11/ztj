@@ -202,6 +202,7 @@ export default {
           VALUES ('${game_id}','${total_round}','${round_num}','${address}','${address_id}','${level}','${blue_id}','${blue_name}','${blue_unit}','${red_id}','${red_name}','${red_unit}','${status}')`;
         this.insertData(insertSQL);
       }
+      this.$db.run('COMMIT');
       this.$Message.success({
         content: '导入成功',
       });
@@ -218,8 +219,6 @@ export default {
           this.$db.run('ROLLBACK');
         }
       });
-      this.$db.run('COMMIT');
-      this.modalShow = false;
     },
     deleteAllData() {
       const sql = 'DELETE FROM GAME_INFO';

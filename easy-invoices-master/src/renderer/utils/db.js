@@ -98,7 +98,6 @@ db.serialize(() => {
     red_score3 INTEGER,
     blue_points3 INTEGER,
     red_points3 INTEGER,
-    red_points2 INTEGER,
     blue_score4 INTEGER,
     red_score4 INTEGER,
     blue_points4 INTEGER,
