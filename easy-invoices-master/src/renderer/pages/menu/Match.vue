@@ -18,14 +18,14 @@
                 </Row>
                 <Row style="{display: block;padding: 1px;  background: #26292E; border-radius: 1px;margin: 0px;height: 340px;}">
                     <Col span="12" >
-                        <div class="userName1" style="background: #232D3A;margin-top: -2px;line-height: 50px;border:0.5px solid #ffffff;">
+                        <div class="userName1" style="background: #232D3A;margin-top: -2px;line-height: 50px;border:0.5px solid #666666;">
                             <Avatar icon="ios-person" size="large" style="margin-left: -120px"/>
                             <span style="padding-left:80px">曾炜龙</span>
                         </div>
 
                     </Col>
                     <Col span="12">
-                        <div class="userName2" style="background:#33252A;color:white;margin-top: -2px;line-height: 50px;border:0.5px solid #ffffff;">
+                        <div class="userName2" style="background:#33252A;color:white;margin-top: -2px;line-height: 50px;border:0.5px solid #666666;">
                             <span style="padding-right:90px">张田静</span>
                             <Avatar icon="ios-person" size="large" style="margin-right: -110px"/>
                         </div>
@@ -35,8 +35,8 @@
                     <Row >
                         <Col span="4" style="background: #1B3757">
                             <div class="left-koufeng">
-                                <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="gold">1</Tag></span></p>
-                                <p>感应数&nbsp; &nbsp;<span><Tag color="gold">2</Tag></span></p>
+                                <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="#5F9EA0">1</Tag></span></p>
+                                <p>感应数&nbsp; &nbsp;<span><Tag color="#5F9EA0">2</Tag></span></p>
                             </div>
                         </Col>
                         <Col span="6"> <div class="grade1" id="blue_grade" style="background:#0157B9;color:white;">
@@ -55,8 +55,8 @@
                         </div></Col>
                         <Col span="4" style="background: #521D20">
                             <div class="left-koufeng p" >
-                                <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="gold">1</Tag></span></p>
-                                <p>感应数&nbsp; &nbsp;<span><Tag color="gold">2</Tag></span></p>
+                                <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="#EEA2AD">1</Tag></span></p>
+                                <p>感应数&nbsp; &nbsp;<span><Tag color="#EEA2AD">2</Tag></span></p>
                             </div>
                         </Col>
                     </Row>
@@ -64,7 +64,7 @@
 
                </row>-->
 
-                    <Col span="12" style="background: #1B3757;color:white;border: 1px solid #cccccc;margin-top: 30px;margin-top: 1px;height:75px; ">
+                    <Col span="12" style="background: #1B3757;color:white;border: 1px solid #666666;margin-top: 30px;margin-top: 1px;height:75px; ">
                         <Row>
                             <Col span="6">
                                 <p style="text-align: center">GAM-JEOM</p>
@@ -81,7 +81,7 @@
                             </Col>
                         </Row>
                     </Col>
-                    <Col span="12" style="background:#521D20;color:white;border: 1px solid #cccccc;margin-top: 30px;margin-top: 1px;height:75px">
+                    <Col span="12" style="background:#521D20;color:white;border: 1px solid #666666;margin-top: 30px;margin-top: 1px;height:75px">
                         <Row>
                             <Col span="6">a</Col>
                             <Col span="6">b</Col>
