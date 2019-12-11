@@ -96,7 +96,7 @@ export default {
       downloadExcelLoading: false,
       modalBtnLoading: false,
       tableLoading: false,
-      // ----特殊枚举
+      // &#45;&#45;&#45;&#45;特殊枚举
       sortList: [
         {
           label: '按创建倒序',
@@ -124,7 +124,7 @@ export default {
           min: 'sellPriceMin',
         },
       ],
-      // ----常用
+      // &#45;&#45;&#45;&#45;常用
       search: {
         name: '',
         remark: '',
@@ -619,3 +619,7 @@ export default {
 </script>
 <style lang="less">
 </style>
+
+
+
+
