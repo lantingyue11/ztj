@@ -113,23 +113,19 @@
             <Col span="7" style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;height: 298px;}">
                 <Row>
                     <Col span="24">
-                        <Dropdown style="padding-bottom: 10px;">
-                            <Button type="primary">
-                                跆拳道场次信息选择&nbsp;&nbsp;&nbsp;
-                                <Icon type="ios-arrow-down"></Icon>
-                            </Button>
-                            <DropdownMenu slot="list">
-                                <DropdownItem>A场地</DropdownItem>
-                                <DropdownItem>B场地</DropdownItem>
-                                <DropdownItem disabled>C场地</DropdownItem>
-                                <DropdownItem>D场地</DropdownItem>
-                                <DropdownItem divided>E场地</DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
+                        <Form :label-width="90" inline >
+                            <FormItem label="场地选择">
+                                <Select v-model="currentAddress" style="width:150px;" placeholder="请选择场地过滤" @on-change="changeAddress" clearable
+                                        filterable>
+                                    <Option v-for="(item,index) in addressList" :value="item.address" :key="index">{{item.address}} 场次
+                                    </Option>
+                                </Select>
+                            </FormItem>
+                        </Form>
                     </Col>
                 </Row>
                 <Row>
-                    <Table border :columns="columns1" :data="data1"></Table>
+                    <Table border :columns="columns1" :data="dataList" :loading="tableLoading"></Table>
                 </Row>
             </Col>
         </Row>
@@ -235,26 +231,12 @@ export default {
       show: false,
       columns1: [
         {
-          title: 'Name',
-          key: 'name',
+          title: '序号',
+          key: 'game_id',
         },
         {
-          title: 'Status',
+          title: '状态',
           key: 'status',
-        },
-      ],
-      data1: [
-        {
-          name: 'A0001',
-          status: '已完成',
-        },
-        {
-          name: 'A0002',
-          status: '等待',
-        },
-        {
-          name: 'A0003',
-          status: '等待',
         },
       ],
       timer: null,
@@ -266,6 +248,10 @@ export default {
       currentCount: 90,
       blueGam: 0,
       redGam: 0,
+      dataList: [],
+      addressList: [],
+      currentAddress: '',
+      tableLoading: false,
     };
   },
   methods: {
@@ -396,6 +382,79 @@ export default {
         this.redGam--;
       }
     },
+
+    // 通过场地查找比赛信息
+    getInitData(currentAddress) {
+      this.tableLoading = true;
+      const address = currentAddress;
+      console.log('address = ' + address);
+      const countSQL = `SELECT game_id,status from GAME_INFO WHERE address = '${address}' LIMIT 0, 4 `;
+      this.$logger(countSQL);
+      this.$db.all(countSQL, (err, res) => {
+        if (err) {
+          this.$logger(err);
+          this.$Notice.error({
+            title: '查询失败',
+            desc: err,
+          });
+        } else {
+          console.log(res);
+          this.dataList = [];
+          this.dataList = res;
+        }
+      });
+      this.tableLoading = false;
+    },
+
+    // 初始化场次信息数据
+    initData() {
+      const countSQL = 'SELECT DISTINCT address from GAME_INFO ORDER BY address';
+      this.$logger(countSQL);
+      let address = '';
+      this.$db.all(countSQL, (err, res) => {
+        if (err) {
+          this.$logger(err);
+          this.$Notice.error({
+            title: '查询失败',
+            desc: err,
+          });
+        } else {
+          this.addressList = res;
+          console.log(res[0].address);
+          this.currentAddress = res[0].address;
+          address = res[0].address;
+          this.getInitData(address);
+        }
+      });
+    },
+    // 获取场地信息
+    getAddressInfo() {
+      const countSQL = 'SELECT DISTINCT address from GAME_INFO ORDER BY address';
+      this.$logger(countSQL);
+      this.$db.all(countSQL, (err, res) => {
+        if (err) {
+          this.$logger(err);
+          this.$Notice.error({
+            title: '查询失败',
+            desc: err,
+          });
+        } else {
+          this.addressList = res;
+          console.log(res[0].address);
+          this.currentAddress = res[0].address;
+        }
+      });
+    },
+
+    // 选择场地方法
+    changeAddress(name) {
+      console.log('name=' + name);
+      this.getInitData(name);
+    },
+  },
+  created() {
+    this.getAddressInfo();
+    this.initData();
   },
 };
 

@@ -615,11 +615,6 @@ export default {
     this.getDataList('search');
   },
 };
-
 </script>
 <style lang="less">
 </style>
-
-
-
-

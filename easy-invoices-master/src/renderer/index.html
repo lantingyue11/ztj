@@ -5,40 +5,201 @@
     <title>投屏</title>
 </head>
 <style>
+    #tip #showMessage{
+        margin-top:200px;
+        font-size: 80px;
+        font-weight: bold;
+        font-family: Arial;
+        text-align: center;
+        color: white;
+    }
+    html{
+        margin: auto;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+    body{
+        margin: auto;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+    span{
+        font-size: 30px;
+    }
+    span i{
+        color: #077bbe;
+    }
+    .clock_style{
+        font-size: 40px;
+        line-height: 50px;
+        color: #ffffff;
+        text-align: center;
+    }
 
-
+    .vsSign{
+        font-size: 4em;
+        font-weight: bold;
+        color: #8391a5;
+        text-align: center;
+    }
+    .userName1{
+        font-size: 4em;
+        border-radius: 5px;
+        color: #ffffff;
+        text-align: center;
+        background: #232D3A;
+        height: 100%;
+    }
+    .userName2{
+        font-size: 4em;
+        border-radius: 5px;
+        text-align: center;
+        background:#33252A;
+        color:white;
+        height: 100%;
+    }
+    .grade1{
+        font-size: 25em;
+        text-align: center;
+        height: 100%;
+    }
+    .grade2{
+        font-size: 25em;
+        text-align: center;
+        height: 100%;
+    }
+    .timer_time{
+        font-size: 55px;
+        line-height: 100px;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+    }
+    .timer{
+        height: 150px;
+    }
+    .left-koufeng{
+        margin-top: 305px;
+    }
+    .left-koufeng p{
+        color: white;
+        font-size: 30px;
+        text-align: center;
+    }
+    .address{
+        font-size: 2em;
+        color: white;
+        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        text-align: center;
+    }
 </style>
 <body>
-<div id="app">
-<v-scren></v-scren>
+<div style="display: block; background: #26292E; border-radius: 1px;height: 100%;">
+    <div style="width: 50%;float: left;height: 20%">
+        <div class="userName1" >
+            <span style="padding-left:80px;font-size: 1.5em;">曾炜龙</span>
+        </div>
+    </div>
+    <div style="width: 50%;float: left;height: 20%">
+        <div class="userName2">
+            <span style="padding-right:90px;font-size: 1.5em;">张田静</span>
+        </div>
+    </div>
 
+    <div style="width: 100%;height: 60%">
+        <div style="background: #1B3757;width: 16.7%;float: left;height: 100%;">
+            <div class="left-koufeng">
+                <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="#5F9EA0">1</Tag></span></p>
+                <p>感应数&nbsp; &nbsp;<span><Tag color="#5F9EA0">2</Tag></span></p>
+            </div>
+        </div>
+        <div style="width: 25%;float: left;height: 100%;">
+            <div class="grade1" id="blue_grade" style="background:#0157B9;color:white;">
+                0
+            </div>
+        </div>
+
+        <div style="background: #26292E;width: 16.7%;float: left;height: 100%;">
+            <div class="vsSign"><p>VS</p></div>
+            <div class="timer" style="background: #3CB371;">
+                <div class="clock_style">Round 1</div>
+                <div class="timer_time">
+                    1:30
+                </div>
+            </div>
+            <div class="address">
+                <p>MATCH</p>
+                <p>场地A</p>
+            </div>
+        </div>
+        <div style="width: 25%;float: left;height: 100%;">
+            <div class="grade2" id="red_grade" style="background:#B80000;color:white;">
+            0
+            </div>
+        </div>
+        <div style="background: #521D20;width: 16.3%;float: left;height: 100%;">
+            <div class="left-koufeng p">
+                <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="#EEA2AD">1</Tag></span></p>
+                <p>感应数&nbsp; &nbsp;<span><Tag color="#EEA2AD">2</Tag></span></p>
+            </div>
+        </div>
+    </div>
+
+    <div style="background: #232D3A;color:white;margin-top: 1px;height:110px;width: 49.8% ;float: left;height: 20%;">
+            <div style="width: 25%;float: left">
+            <p style="text-align: center">GAM-JEOM</p>
+            <p style="text-align: center"></p>
+            </div>
+            <div style="width: 25%;float: left">
+            头部
+            </div>
+            <div style="width: 25%;float: left">
+            身体
+            </div>
+            <div style="width: 25%;float: left">
+            手部
+            </div>
+    </div>
+    <div style="background:#33252A;color:white;margin-top: 1px;height:110px;width: 49.8%;float: left;height: 20%;">
+        <div style="width: 25%;float: left">
+            头部
+        </div>
+        <div style="width: 25%;float: left">
+            身体
+        </div>
+        <div style="width: 25%;float: left">
+            手部
+        </div>
+        <div style="width: 25%;float: left">
+        <p style="text-align: center">GAM-JEOM</p>
+        <p style="text-align: center">{{redGam}}</p>
+        </div>
+    </div>
 </div>
 </body>
 
 <script>
-
-
-
   const ipcRenderer = require('electron').ipcRenderer;
 
   window.onload = function() {
     getMessage();
+
     function getMessage() {
       ipcRenderer.on('imgUploadMsgFromMain', (event, msg) => {
-        if(msg.person == 1){
+        if (msg.person == 1) {
           document.getElementById('blue_grade').innerText = msg.point;
-        }else{
+        } else {
           document.getElementById('red_grade').innerText = msg.point;
         }
       });
-    };
-
-  }
+    }
+  };
 
   var ifCutOff = false;
-  TimeDown("show", 90);
 
-
+  /*  TimeDown("show", 90);*/
   function TimeDown(id, diffTime) {
     //当前时间
     var nowDate = new Date();
@@ -56,34 +217,15 @@
     //秒
     var seconds = modulo % 60;
     //输出到页面
-    document.getElementById(id).innerHTML =  minutes + ":" + seconds;
+    document.getElementById(id).innerHTML = minutes + ':' + seconds;
     //延迟一秒执行自己
-    setTimeout(function () {
-      if(!ifCutOff && diffTime > 0){
-        diffTime = diffTime-1;
+    setTimeout(function() {
+      if (!ifCutOff && diffTime > 0) {
+        diffTime = diffTime - 1;
         TimeDown(id, diffTime);
       }
 
-    }, 1000)
+    }, 1000);
   }
-
-  // 使用httpVueLoader,引入scren组件
-  Vue.use(httpVueLoader);
-
-  new Vue({
-      el: '#app',
-      data: function () {
-          return { visible: false }
-      },
-      components: {
-          // 将组建加入组建库
-          'v-scren': 'url:./pages/menu/v-scren.vue'
-      }
-  })
-
-
 </script>
-
-
-
 </html>

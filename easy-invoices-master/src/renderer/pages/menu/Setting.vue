@@ -233,7 +233,6 @@ export default {
           this.$db.run('ROLLBACK');
         }
       });
-      this.$db.run('COMMIT');
     },
   },
 };
