@@ -11,6 +11,7 @@ if (process.env.NODE_ENV !== 'development') {
 
 let mainWindow;
 let newWindow;
+let isShowScreen = false;
 const winURL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:9080'
   : `file://${__dirname}/index.html`;
@@ -46,6 +47,9 @@ function createWindow() {
     mainWindow.focus();
   });
 
+}
+
+function showScreenToIndex() {
   // mainWindow.webContents.openDevTools({ detach: true });
   // eslint-disable-next-line no-undef
   const displays = electron.screen.getAllDisplays();
@@ -62,14 +66,14 @@ function createWindow() {
     });
     newWindow.loadFile(newWinURL);
     newWindow.webContents.openDevTools();
+  } else {
+    sendUpdateMessage('error', '你还没有连接拓展的显示器');
   }
   if (externalDisplay) {
     newWindow.on('closed', () => {
       newWindow = null;
     });
   }
-
-
 }
 
 app.on('ready', () => {
@@ -126,7 +130,22 @@ ipcMain.on('download', (event, downloadPath) => {
 ipcMain.on('updateIndexGrade', (event, message) => {
   // eslint-disable-next-line no-alert
   console.log(message);
-  newWindow.webContents.send('imgUploadMsgFromMain', message);
+  if (isShowScreen === true) {
+    newWindow.webContents.send('imgUploadMsgFromMain', message);
+  }
+});
+
+/**
+ * 投屏按钮
+ * showScreen
+ */
+ipcMain.on('showScreen', (event, message) => {
+  // eslint-disable-next-line no-alert
+  console.log(message);
+  if (isShowScreen === false) {
+    isShowScreen = true;
+    showScreenToIndex();
+  }
 });
 /**
  * 自动更新
