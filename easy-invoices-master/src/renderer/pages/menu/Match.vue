@@ -110,7 +110,7 @@
                 </Row>
 
             </Col>
-            <Col span="7" style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;height: 298px;}">
+            <Col span="7" style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;height: 425px;}">
                 <Row>
                     <Col span="24">
                         <Form :label-width="90" inline >
@@ -126,6 +126,9 @@
                 </Row>
                 <Row>
                     <Table border :columns="columns1" :data="dataList" :loading="tableLoading"></Table>
+                </Row>
+                <Row style="margin-top: 40px;">
+                    <Button type="warning" @click="showScreen">投屏</Button>
                 </Row>
             </Col>
         </Row>
@@ -388,7 +391,7 @@ export default {
       this.tableLoading = true;
       const address = currentAddress;
       console.log('address = ' + address);
-      const countSQL = `SELECT game_id,status from GAME_INFO WHERE address = '${address}' LIMIT 0, 4 `;
+      const countSQL = `SELECT game_id,status from GAME_INFO WHERE address = '${address}' LIMIT 0, 5 `;
       this.$logger(countSQL);
       this.$db.all(countSQL, (err, res) => {
         if (err) {
@@ -451,12 +454,39 @@ export default {
       console.log('name=' + name);
       this.getInitData(name);
     },
+
+    // 投屏
+    showScreen() {
+      this.$electron.ipcRenderer.send('showScreen', {
+        person: 1,
+      });
+    },
+
+    // 显示信息
+    update() {
+      this.$electron.ipcRenderer.on('update-message', (event, msg) => {
+        const message = msg.message;
+        const data = msg.data;
+        switch (message) {
+          case 'error':
+            this.$Notice.error({
+              title: '提示信息',
+              desc: data,
+            });
+            break;
+          default:
+            console.log('default');
+        }
+      });
+    },
   },
   created() {
     this.getAddressInfo();
     this.initData();
+    this.update();
   },
 };
+
 
 </script>
 <style >

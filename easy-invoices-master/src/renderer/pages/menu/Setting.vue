@@ -52,58 +52,58 @@
         <br>
         <Form  :label-width="80" ref="formInline" inline>
             <FormItem label="局时/秒">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..." clearable></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..." clearable></Input>
             </FormItem>
             <FormItem label="加时局时/秒">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..." clearable></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..." clearable></Input>
             </FormItem>
             <FormItem label="休息时间/秒">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="加时赛最大得分/秒">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="计时时间/秒">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="加时扣分">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="比赛局数">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="当前局">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="有效得分">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="当前时间">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="最大分差">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="青方护具号">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="裁判时差">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="红方护具号">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="得分区间">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="青方头盔号">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="扣分个数">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem label="红方头盔号">
-                <Input v-model="formItem.input" style="width: 203px" placeholder="Enter something..."></Input>
+                <Input v-model="formItem.input" style="width: 203px" placeholder="请输入..."></Input>
             </FormItem>
             <FormItem>
                 <Button type="primary">保存</Button>
