@@ -228,6 +228,7 @@
 
 </template>
 <script>
+import SerialPort from 'serialport';
 export default {
   data() {
     return {
@@ -479,11 +480,28 @@ export default {
         }
       });
     },
+
+    // 接受串口信息
+    receivePortMsg() {
+      console.log('receivePortMsg');
+      const serialPort = new SerialPort(
+        'COM2', {
+          baudRate: 115200,
+          dataBits: 8,
+          parity: 'even',
+          stopBits: 1,
+          flowControl: false,
+        }, false);
+      serialPort.on('data', function(data) {
+        console.log(data);
+      });
+    },
   },
   created() {
     this.getAddressInfo();
     this.initData();
     this.update();
+    this.receivePortMsg();
   },
 };
 
