@@ -79,6 +79,7 @@
   },
   "dependencies": {
     "js-xlsx": "^0.8.22",
+    "serialport": "^8.0.4",
     "sqlite3": "^4.1.0"
   },
   "devDependencies": {
@@ -103,12 +104,14 @@
     "electron-builder": "^20.20.4",
     "electron-debug": "^1.4.0",
     "electron-devtools-installer": "^2.2.0",
+    "electron-rebuild": "^1.8.8",
     "electron-settings": "^3.2.0",
     "electron-updater": "^2.23.3",
     "eslint": "^4.4.1",
     "eslint-config-egg": "^7.0.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.9.0",
+    "serialport": "^8.0.4",
     "eslint-plugin-html": "^3.1.1",
     "eslint-plugin-vue": "^4.5.0",
     "extract-text-webpack-plugin": "^3.0.0",
@@ -135,7 +138,7 @@
     "webpack": "^3.5.2",
     "webpack-dev-server": "^2.7.1",
     "webpack-hot-middleware": "^2.18.2",
-    "yorkie": "^1.0.3",
-    "xlsx": "*"
+    "xlsx": "*",
+    "yorkie": "^1.0.3"
   }
 }
