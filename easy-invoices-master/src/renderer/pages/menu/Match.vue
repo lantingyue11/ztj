@@ -1,32 +1,34 @@
 <template>
     <div>
-        <div id="tip" v-show="show">
-            <p id="showMessage">{{message}}</p>
-        </div>
         <Row>
             <Col span="16">
                 <Row>
                     <Col span="24">
                         <Row style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;}">
-                            <Col span="6"><span><Icon type="clipboard"  ></Icon>&nbsp;&nbsp;场次：</span></Col>
-                            <Col span="6"><span><Icon type="ios-paper" />&nbsp;&nbsp;轮次：</span></Col>
-                            <Col span="6"><span><Icon type="grid" />&nbsp;&nbsp;局数：</span></Col>
-                            <Col span="6"><span><Icon type="podium" />&nbsp;&nbsp;级别：</span></Col>
+                            <Col span="6"><span><Icon type="clipboard"  ></Icon>&nbsp;&nbsp;场次：{{address}}</span></Col>
+                            <Col span="6"><span><Icon type="ios-paper" />&nbsp;&nbsp;轮次：{{totalRound}}</span></Col>
+                            <Col span="6"><span><Icon type="grid" />&nbsp;&nbsp;局数：{{roundNum}}</span></Col>
+                            <Col span="6"><span><Icon type="podium" />&nbsp;&nbsp;级别：{{thisLevel}}</span></Col>
                         </Row>
 
                     </Col>
                 </Row>
-                <Row style="{display: block;padding: 1px;  background: #26292E; border-radius: 1px;margin: 0px;height: 340px;}">
+                <Row>
+                    <Col span="24" id="tip" v-show="show">
+                        <p id="showMessage">{{message}}</p>
+                    </Col>
+                </Row>
+                <Row style="{padding: 1px;  background: #26292E; border-radius: 1px;margin: 0px;height: 340px;}">
                     <Col span="12" >
                         <div class="userName1" style="background: #232D3A;margin-top: -2px;line-height: 50px;border:0.5px solid #666666;">
                             <Avatar icon="ios-person" size="large" style="margin-left: -120px"/>
-                            <span style="padding-left:80px">曾炜龙</span>
+                            <span style="padding-left:80px">{{blueName}}</span>
                         </div>
 
                     </Col>
                     <Col span="12">
                         <div class="userName2" style="background:#33252A;color:white;margin-top: -2px;line-height: 50px;border:0.5px solid #666666;">
-                            <span style="padding-right:90px">张田静</span>
+                            <span style="padding-right:90px">{{redName}}</span>
                             <Avatar icon="ios-person" size="large" style="margin-right: -110px"/>
                         </div>
 
@@ -40,7 +42,7 @@
                             </div>
                         </Col>
                         <Col span="6"> <div class="grade1" id="blue_grade" style="background:#0157B9;color:white;">
-                            0
+                            {{blueGrade}}
                         </div></Col>
 
                         <Col span="4" style="background: #26292E"><div class="vsSign"><p>VS</p></div>
@@ -51,7 +53,7 @@
                                 </div>
                             </div></Col>
                         <Col span="6"><div class="grade2" id="red_grade" style="background:#B80000;color:white;">
-                            0
+                            {{redGrade}}
                         </div></Col>
                         <Col span="4" style="background: #521D20">
                             <div class="left-koufeng p" >
@@ -125,7 +127,7 @@
                     </Col>
                 </Row>
                 <Row>
-                    <Table border :columns="columns1" :data="dataList" :loading="tableLoading"></Table>
+                    <Table border :columns="columns1" :data="dataList" :loading="tableLoading" @on-row-dblclick="chooseLine"></Table>
                 </Row>
                 <Row style="margin-top: 40px;">
                     <Button type="warning" @click="showScreen">投屏</Button>
@@ -256,6 +258,15 @@ export default {
       addressList: [],
       currentAddress: '',
       tableLoading: false,
+      blueGrade: 0,
+      redGrade: 0,
+      blueName: '青队',
+      redName: '红队',
+      tempData: [],
+      thisLevel: '',
+      address: '',
+      totalRound: '',
+      roundNum: '',
     };
   },
   methods: {
@@ -264,15 +275,11 @@ export default {
      */
     addPoint(name) {
       if (name === 'blue') {
-        const value = parseInt(document.getElementById('blue_grade').innerText);
-        const newValue = value + 1;
-        document.getElementById('blue_grade').innerText = newValue;
-        this.sendMessage(1, newValue);
+        this.blueGrade++;
+        this.sendMessage(1, this.blueGrade);
       } else if (name === 'red') {
-        const value = parseInt(document.getElementById('red_grade').innerText);
-        const newValue = value + 1;
-        document.getElementById('red_grade').innerText = newValue;
-        this.sendMessage(2, newValue);
+        this.redGrade++;
+        this.sendMessage(2, this.redGrade);
       } else {
         this.$Notice.error({
           title: '加分遇到未知错误！',
@@ -282,22 +289,20 @@ export default {
     // 减分
     devicePoint(name) {
       if (name === 'blue') {
-        const value = parseInt(document.getElementById('blue_grade').innerText);
-        const newValue = value - 1;
+        const newValue = this.blueGrade - 1;
         if (newValue < 0) {
           console.log('青方分数小于零');
         } else {
           this.sendMessage(1, newValue);
-          document.getElementById('blue_grade').innerText = newValue;
+          this.blueGrade--;
         }
       } else if (name === 'red') {
-        const value = parseInt(document.getElementById('red_grade').innerText);
-        const newValue = value - 1;
+        const newValue = this.redGrade - 1;
         if (newValue < 0) {
           console.log('青方分数小于零');
         } else {
           this.sendMessage(2, newValue);
-          document.getElementById('red_grade').innerText = newValue;
+          this.redGrade--;
         }
       } else {
         this.$Notice.error({
@@ -392,7 +397,7 @@ export default {
       this.tableLoading = true;
       const address = currentAddress;
       console.log('address = ' + address);
-      const countSQL = `SELECT game_id,status from GAME_INFO WHERE address = '${address}' LIMIT 0, 5 `;
+      const countSQL = `SELECT game_id,status from GAME_INFO WHERE address = '${address}' and blue_id <>'None' LIMIT 0, 5 `;
       this.$logger(countSQL);
       this.$db.all(countSQL, (err, res) => {
         if (err) {
@@ -402,7 +407,6 @@ export default {
             desc: err,
           });
         } else {
-          console.log(res);
           this.dataList = [];
           this.dataList = res;
         }
@@ -424,7 +428,6 @@ export default {
           });
         } else {
           this.addressList = res;
-          console.log(res[0].address);
           this.currentAddress = res[0].address;
           address = res[0].address;
           this.getInitData(address);
@@ -444,7 +447,6 @@ export default {
           });
         } else {
           this.addressList = res;
-          console.log(res[0].address);
           this.currentAddress = res[0].address;
         }
       });
@@ -456,6 +458,38 @@ export default {
       this.getInitData(name);
     },
 
+    // 查询通用方法
+    getDataBySql(Sql) {
+      const countSQL = Sql;
+      this.$logger(countSQL);
+      this.$db.all(countSQL, (err, res) => {
+        if (err) {
+          this.$logger(err);
+          this.$Notice.error({
+            title: '查询失败',
+            desc: err,
+          });
+        } else {
+          console.log(res);
+          this.blueName = res[0].blue_name;
+          this.redName = res[0].red_name;
+          this.thisLevel = res[0].level;
+          this.address = res[0].address;
+          this.totalRound = res[0].total_round;
+          this.roundNum = res[0].round_num;
+          this.blueGrade = 0;
+          this.redGrade = 0;
+        }
+      });
+    },
+
+    // 选择表格某一行事件
+    chooseLine(index) {
+      const gameId = index.game_id;
+      console.log(gameId);
+      const querySQL = 'SELECT * from GAME_INFO where game_id = ' + gameId;
+      this.getDataBySql(querySQL);
+    },
     // 投屏
     showScreen() {
       this.$electron.ipcRenderer.send('showScreen', {
@@ -482,7 +516,8 @@ export default {
     },
 
     // 接受串口信息
-    receivePortMsg() {
+    receivePortMsg(obj) {
+      const that = obj;
       console.log('receivePortMsg');
       const serialPort = new SerialPort(
         'COM2', {
@@ -494,14 +529,64 @@ export default {
         }, false);
       serialPort.on('data', function(data) {
         console.log(data);
+        const newArray = that.transferToSixteen(data);
+        console.log('newdata = ' + newArray);
+        that.processNewData(newArray, that);
       });
     },
+
+    // 十进制转16进制
+    transferToSixteen(data) {
+      console.log('start transfer to sisteen');
+      const newArray = data.map(item => {
+        return item.toString(16);
+      });
+      return newArray;
+    },
+
+    // 处理串口信息
+    processNewData(data, that) {
+      const address = data[1];
+      console.log(address);
+      const eq = data[2];
+      console.log('eq = ' + eq);
+      switch (eq) {
+        case '01':
+          break;
+        case '2':
+          that.redGrade = that.redGrade + 2;
+          break;
+        case '3':
+          that.blueGrade = that.blueGrade + 2;
+          break;
+        case '04':
+          break;
+        case '05':
+          break;
+        case '06':
+          break;
+        case 7:
+          that.redGrade = that.redGrade + 3;
+          break;
+        case '08':
+          that.blueGrade = that.blueGrade + 3;
+          break;
+        default:
+          console.log('get eq error, and eq = ' + eq);
+          that.$Notice.error({
+            title: '提示信息',
+            desc: 'get eq error, and eq = ' + eq,
+          });
+      }
+
+    },
+
   },
   created() {
     this.getAddressInfo();
     this.initData();
     this.update();
-    this.receivePortMsg();
+    this.receivePortMsg(this);
   },
 };
 
@@ -509,16 +594,14 @@ export default {
 </script>
 <style >
     #tip{
-        text-align: center;
         position: absolute;
-        height: 100%;
+        height: 340px;
         width: 100%;
-        background-color: rgba(61, 61, 61, 0.5);
+        background: rgba(23, 23, 23, 0.5);
         z-index: 99999;
-        display: block;
     }
     #tip #showMessage{
-        margin-top:200px;
+        margin-top:100px;
         font-size: 80px;
         font-weight: bold;
         font-family: Arial;
