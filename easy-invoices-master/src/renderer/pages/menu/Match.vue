@@ -99,7 +99,7 @@
                     <Col span="11">
                         <Button>读秒</Button>
                         <Button @click="countdown('showMessage',10)">休息计时</Button>
-                        <Button>下一局</Button>
+                        <Button @click="nextMatch">下一局</Button>
                     </Col>
                     <Col span="4">
                         <Button type="primary" @click="created">{{startBtn}}</Button>
@@ -139,7 +139,7 @@
                 <Row class="team_grade">
                     <Col span="11">
                         <div>
-                            <Dropdown>
+                            <Dropdown @on-click="blueWinBth">
                                 <Button type="primary">
                                     青方判胜
                                     <Icon type="ios-arrow-down"></Icon>
@@ -180,7 +180,7 @@
                     <Col span="2"></Col>
                     <Col span="11">
                         <div style="float: right;width: 100%;">
-                            <Dropdown style="margin-left: 177px">
+                            <Dropdown style="margin-left: 177px" @on-click="redWinBth">
                                 <Button type="error">
                                     红方判胜
                                     <Icon type="ios-arrow-down"></Icon>
@@ -267,6 +267,7 @@ export default {
       address: '',
       totalRound: '',
       roundNum: '',
+      currentGameId: '',
     };
   },
   methods: {
@@ -276,10 +277,10 @@ export default {
     addPoint(name) {
       if (name === 'blue') {
         this.blueGrade++;
-        this.sendMessage(1, this.blueGrade);
+        this.sendMessage('grade', 'blue', this.blueGrade);
       } else if (name === 'red') {
         this.redGrade++;
-        this.sendMessage(2, this.redGrade);
+        this.sendMessage('grade', 'red', this.redGrade);
       } else {
         this.$Notice.error({
           title: '加分遇到未知错误！',
@@ -293,7 +294,7 @@ export default {
         if (newValue < 0) {
           console.log('青方分数小于零');
         } else {
-          this.sendMessage(1, newValue);
+          this.sendMessage('grade', 'blue', newValue);
           this.blueGrade--;
         }
       } else if (name === 'red') {
@@ -301,7 +302,7 @@ export default {
         if (newValue < 0) {
           console.log('青方分数小于零');
         } else {
-          this.sendMessage(2, newValue);
+          this.sendMessage('grade', 'red', newValue);
           this.redGrade--;
         }
       } else {
@@ -311,10 +312,11 @@ export default {
       }
     },
     // 发送分数信息
-    sendMessage(who, grade) {
+    sendMessage(type1, who, value1) {
       this.$electron.ipcRenderer.send('updateIndexGrade', {
+        type: type1,
         person: who,
-        point: grade,
+        value: value1,
       });
     },
     // 计数
@@ -479,6 +481,7 @@ export default {
           this.roundNum = res[0].round_num;
           this.blueGrade = 0;
           this.redGrade = 0;
+          this.currentGameId = res[0].game_id;
         }
       });
     },
@@ -488,6 +491,14 @@ export default {
       const gameId = index.game_id;
       console.log(gameId);
       const querySQL = 'SELECT * from GAME_INFO where game_id = ' + gameId;
+      this.getDataBySql(querySQL);
+    },
+
+    // 点击下一场
+    nextMatch() {
+      this.initMessage();
+      const gameId = this.currentGameId;
+      const querySQL = `SELECT * from GAME_INFO where game_id >'${gameId}' and blue_id <>'None' limit 1`;
       this.getDataBySql(querySQL);
     },
     // 投屏
@@ -513,6 +524,25 @@ export default {
             console.log('default');
         }
       });
+    },
+
+    // 红方胜利按钮
+    redWinBth(name) {
+      console.log(name);
+      this.show = true;
+      this.message = '红方胜利' + name;
+    },
+
+    // 蓝方胜利按钮
+    blueWinBth(name) {
+      console.log(name);
+      this.show = true;
+      this.message = '青方胜利' + name;
+    },
+
+    initMessage() {
+      this.show = false;
+      this.message = '';
     },
 
     // 接受串口信息

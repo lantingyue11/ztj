@@ -188,10 +188,21 @@
 
     function getMessage() {
       ipcRenderer.on('imgUploadMsgFromMain', (event, msg) => {
-        if (msg.person == 1) {
-          document.getElementById('blue_grade').innerText = msg.point;
-        } else {
-          document.getElementById('red_grade').innerText = msg.point;
+        var type = msg.type;
+        switch (type) {
+          case 'grade':
+            if(msg.person == 'blue'){
+              document.getElementById('blue_grade').innerText = msg.value;
+            }else if(msg.person == 'red'){
+              document.getElementById('red_grade').innerText = msg.value;
+            }else {
+              console.log('have a error about msg.person is'+ msg.person);
+            }
+            break;
+          case 'time':
+            break;
+          default:
+            console.log(type);
         }
       });
     }
