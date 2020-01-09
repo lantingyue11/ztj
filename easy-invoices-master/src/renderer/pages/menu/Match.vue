@@ -85,9 +85,9 @@
                     </Col>
                     <Col span="12" style="background:#521D20;color:white;border: 1px solid #666666;margin-top: 30px;margin-top: 1px;height:75px">
                         <Row>
-                            <Col span="6">a</Col>
-                            <Col span="6">b</Col>
-                            <Col span="6">c</Col>
+                            <Col span="6">头部</Col>
+                            <Col span="6">身体</Col>
+                            <Col span="6">手部</Col>
                             <Col span="6">
                                 <p style="text-align: center">GAM-JEOM</p>
                                 <p style="text-align: center">{{redGam}}</p>
@@ -131,6 +131,7 @@
                 </Row>
                 <Row style="margin-top: 40px;">
                     <Button type="warning" @click="showScreen">投屏</Button>
+                    <Button type="info" style="margin-left: 110px" @click="testConnect">连接测试</Button>
                 </Row>
             </Col>
         </Row>
@@ -215,10 +216,22 @@
                     </Col>
                 </Row>
             </Col>
-            <Col span="7" style="{display: block;padding: 3px;  background: #fff; border-radius: 5px;margin-top: 2px;margin-left: 2px;height: 200px;}">col-6</Col>
-        </Row>
-        <br>
-        <Row>
+            <Col span="7" style="{display: block;padding: 3px;  background: #fff; border-radius: 5px;margin-top: 2px;margin-left: 2px;height: 200px;}">
+               护具电量显示
+                <br><br>
+                <Row>
+                    <Col span="12" style="margin-left: calc((100% - 240px) / 2);">
+                        <i-circle :percent="80" dashboard>
+                            <span class="demo-circle-inner" style="font-size:14px">青方80%</span>
+                        </i-circle>
+                    </Col>
+                    <Col span="12" >
+                        <i-circle :percent="80" stroke-color="#ff5500"  dashboard>
+                            <span class="demo-circle-inner" style="font-size:14px">红方60%</span>
+                        </i-circle>
+                    </Col>
+                </Row>
+            </Col>
             <Col span="6">col-6</Col>
             <Col span="6">col-6</Col>
             <Col span="6">col-6</Col>
@@ -546,25 +559,51 @@ export default {
     },
 
     // 接受串口信息
-    receivePortMsg(obj) {
-      const that = obj;
-      console.log('receivePortMsg');
-      const serialPort = new SerialPort(
-        'COM2', {
-          baudRate: 115200,
-          dataBits: 8,
-          parity: 'even',
-          stopBits: 1,
-          flowControl: false,
-        }, false);
-      serialPort.on('data', function(data) {
-        console.log(data);
-        const newArray = that.transferToSixteen(data);
-        console.log('newdata = ' + newArray);
-        that.processNewData(newArray, that);
-      });
-    },
+      receivePortMsg(obj) {
+          const that = obj;
+          console.log('receivePortMsg');
+          const serialPort = new SerialPort(
+              'COM2', {
+                  baudRate: 115200,
+                  dataBits: 8,
+                  parity: 'even',
+                  stopBits: 1,
+                  flowControl: false,
+              }, false);
+          serialPort.on('data', function(data) {
+              console.log(data);
+              const newArray = that.transferToSixteen(data);
+              console.log('newdata = ' + newArray);
+              that.processNewData(newArray, that);
+          });
+      },
+      // 测试设备链接状态
+      testConnect(obj) {
+          const that = obj;
+          alert("测试设备");
+          const serialPort = new SerialPort(
+              'COM2', {
+                  baudRate: 115200,
+                  dataBits: 8,
+                  parity: 'even',
+                  stopBits: 1,
+                  flowControl: false,
+              }, false);
+          serialPort.open(function(error){
+              if(error){
+                  alert("打开端口"+portName+"错误："+error);
+              }else{
+                  alert("打开端口成功，正在监听数据中");
+                  serialPort.on('data',function(data){
+                      console.log(data);
+                      const newArray = that.transferToSixteen(data);
+                      console.log('newdata = ' + newArray);
+                      that.processNewData(newArray, that);
+                  })
+              }
+          });
 
+      },
     // 十进制转16进制
     transferToSixteen(data) {
       console.log('start transfer to sisteen');
@@ -573,12 +612,19 @@ export default {
       });
       return newArray;
     },
-
+    // 16进制转化为10进制
+    transformTen(data) {
+      console.log(parseInt('3D', 16));
+      const newArray = data.map(item => {
+        return item.parseInt(data, 16);
+      });
+      return newArray;
+    },
     // 处理串口信息
     processNewData(data, that) {
-      const address = data[1];
+      const address = data[5];
       console.log(address);
-      const eq = data[2];
+      const eq = data[6];
       console.log('eq = ' + eq);
       switch (eq) {
         case '01':
@@ -608,7 +654,110 @@ export default {
             desc: 'get eq error, and eq = ' + eq,
           });
       }
+      const object = data[7];
+      const power1 = data[8];
+      const power2 = data[9];
+      const power3 = power2 + power1;
+      // 护具受力值
+      const power = that.transformTen(power3);
+      // 目的
+      const purpose = data[10];
+        if (purpose === '01') {
+            console.log('心跳');
+        } else if (purpose === '02') {
+            console.log('按键按下');
+        }
+      // 设备电量
+      const electric = that.transformTen(data[11]);
+        if ( object === '01') {
+            console.log('脚套芯片电量');
+        }else if ( object === '02') {
+            console.log('青方护具电量');
+        }else if ( object === '03'){
+            console.log('红方护具电量');
+        }else if ( object === '04') {
+            console.log('1号打分器');
+        }else if ( object === '05') {
+            console.log('2号打分器');
+        }else if ( object === '06') {
+            console.log('3号打分器');
+        }else if ( object === '07') {
+            console.log('青方头盔');
+        }else if ( object === '08') {
+            console.log('红方头盔');
+        }
 
+      // 护具受力值
+        if (object === '02') {
+            const bluePower = power / 10;
+            console.log(bluePower);
+        } else if (object === '03') {
+            const redPower = power / 10;
+            console.log(redPower);
+        }
+        // 青方头盔是否被击打
+        if (object === '07' && power2 === '01') {
+            console.log('青方被击打');
+        } else if (object === '07' && power2 === '00') {
+            console.log('青方头盔空闲，发送心跳');
+        }
+        // 红方头盔是否被击打
+        if (object === '08' && power2 === '01') {
+            console.log('红方被击打');
+        } else if (object === '08' && power2 === '00') {
+            console.log('红方头盔空闲，发送心跳');
+        }
+        // 1号打分器
+        if (object === '04' && power1 === '01' && power2 === '02') {
+            console.log('1号打分器按下青方一分按键');
+        } else if (object === '04' && power1 === '02' && power2 === '02') {
+            console.log('1号打分器按下青方旋转追加按键');
+        } else if (object === '04' && power1 === '00' && power2 === '02') {
+            console.log('1号打分器心跳包');
+        } else if (object === '04' && power1 === '01' && power2 === '03') {
+            console.log('1号打分器按下红方一分按键');
+        } else if (object === '04' && power1 === '02' && power2 === '03') {
+            console.log('1号打分器按下红方旋转追加按键');
+        } else if (object === '04' && power1 === '00' && power2 === '03') {
+            console.log('1号打分器心跳包');
+        }
+        // 2号打分器
+        if (object === '05' && power1 === '01' && power2 === '02') {
+            console.log('1号打分器按下青方一分按键');
+        } else if (object === '04' && power1 === '02' && power2 === '02') {
+            console.log('1号打分器按下青方旋转追加按键');
+        } else if (object === '05' && power1 === '00' && power2 === '02') {
+            console.log('1号打分器心跳包');
+        } else if (object === '05' && power1 === '01' && power2 === '03') {
+            console.log('1号打分器按下红方一分按键');
+        } else if (object === '05' && power1 === '02' && power2 === '03') {
+            console.log('1号打分器按下红方旋转追加按键');
+        } else if (object === '05' && power1 === '00' && power2 === '03') {
+            console.log('1号打分器心跳包');
+        }
+        // 3号打分器
+        if (object === '06' && power1 === '01' && power2 === '02') {
+            console.log('1号打分器按下青方一分按键');
+        } else if (object === '06' && power1 === '02' && power2 === '02') {
+            console.log('1号打分器按下青方旋转追加按键');
+        } else if (object === '06' && power1 === '00' && power2 === '02') {
+            console.log('1号打分器心跳包');
+        } else if (object === '06' && power1 === '01' && power2 === '03') {
+            console.log('1号打分器按下红方一分按键');
+        } else if (object === '06' && power1 === '02' && power2 === '03') {
+            console.log('1号打分器按下红方旋转追加按键');
+        } else if (object === '06' && power1 === '00' && power2 === '03') {
+            console.log('1号打分器心跳包');
+        }
+        // 设备状态
+        const  status = data[12];
+        if (status === '01') {
+            console.log('设备空闲，未接入护具');
+        } else if (status === '02') {
+            console.log('接入护具');
+        } else if (status === '03') {
+            console.log('异常');
+        }
     },
 
   },
