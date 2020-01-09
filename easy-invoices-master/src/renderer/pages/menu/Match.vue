@@ -221,21 +221,17 @@
                 <br><br>
                 <Row>
                     <Col span="12" style="margin-left: calc((100% - 240px) / 2);">
-                        <i-circle :percent="80" dashboard>
+                        <i-circle :percent="60" dashboard>
                             <span class="demo-circle-inner" style="font-size:14px">青方80%</span>
                         </i-circle>
                     </Col>
                     <Col span="12" >
-                        <i-circle :percent="80" stroke-color="#ff5500"  dashboard>
+                        <i-circle :percent="60" stroke-color="#ff5500"  dashboard>
                             <span class="demo-circle-inner" style="font-size:14px">红方60%</span>
                         </i-circle>
                     </Col>
                 </Row>
             </Col>
-            <Col span="6">col-6</Col>
-            <Col span="6">col-6</Col>
-            <Col span="6">col-6</Col>
-            <Col span="6">col-6</Col>
         </Row>
 
     </div>
@@ -542,15 +538,23 @@ export default {
     // 红方胜利按钮
     redWinBth(name) {
       console.log(name);
-      this.show = true;
-      this.message = '红方胜利' + name;
+      if(name === 'cancel') {
+        this.initMessage();
+      }else{
+        this.show = true;
+        this.message = '红方胜利/ ' + name;
+      }
     },
 
     // 蓝方胜利按钮
     blueWinBth(name) {
       console.log(name);
-      this.show = true;
-      this.message = '青方胜利' + name;
+      if(name === 'cancel') {
+       this.initMessage();
+      }else{
+        this.show = true;
+        this.message = '青方胜利/ ' + name;
+      }
     },
 
     initMessage() {
