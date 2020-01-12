@@ -1,0 +1,43 @@
+{
+    "current": {
+        "inning": 120,
+        "overTimeInning": 60,
+        "restTime": 60,
+        "maxGradeInOT": 2,
+        "timingGrade": 60,
+        "overtimePoints": 2,
+        "gameInning": 2,
+        "currentInning": 1,
+        "effectiveScore": 2,
+        "currentTime": 120,
+        "maxGap": 20,
+        "blueGear": 0,
+        "jetLag": 1,
+        "redGear": 0,
+        "scoreInterval": 3,
+        "blueHead": 0,
+        "pointNum": 10,
+        "redHead": 0
+    },
+    "default": {
+        "inning": 120,
+        "overTimeInning": 60,
+        "restTime": 60,
+        "maxGradeInOT": 2,
+        "timingGrade": 60,
+        "overtimePoints": 2,
+        "gameInning": 2,
+        "currentInning": 1,
+        "effectiveScore": 2,
+        "currentTime": 120,
+        "maxGap": 20,
+        "blueGear": 0,
+        "jetLag": 1,
+        "redGear": 0,
+        "scoreInterval": 3,
+        "blueHead": 0,
+        "pointNum": 10,
+        "redHead": 0
+    },
+    "test": "ccc"
+}
