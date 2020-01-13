@@ -242,7 +242,26 @@
 
             </row>
         </Row>
-
+        <Modal v-model="modalShow" :mask-closable="false" :title="modalTitle" @on-cancel="modalShow = false">
+            <div>
+                <Form ref="formVali"  label-position="right"
+                      :label-width="130" >
+                    <FormItem label="状态">
+                        <Select style="width:200px;">
+                            <Option value="等待中">等待中</Option>
+                            <Option value="已完成">已完成</Option>
+                        </Select>
+                    </FormItem>
+                </Form>
+            </div>
+            <div slot="footer">
+                <Button @click="modalShow = false">
+                    取消
+                </Button>
+                <Button type="primary" @click="editConfirm" :loading="modalBtnLoading">确认
+                </Button>
+            </div>
+        </Modal>
     </div>
 
 
@@ -255,30 +274,64 @@ export default {
     components: {Caspanel,Vbattery},
     data() {
     return {
-        showImg: false,
+      showImg: false,
       show: false,
       columns1: [
         {
-          title: '场次',
+          title: '编号',
           key: 'game_id',
+          width: 90,
+        },
+        {
+          title: '参赛方',
+          key: 'people',
+          width: 150,
         },
         {
           title: '进程',
-          key: 'total_round',
+          key: 'round_num',
+          width: 70,
         },
-          {
-              title: '参赛方',
-              key: 'blue_name' + '&&' +'red_name',
+        {
+          title: '比赛项目',
+          key: 'level',
+          width: 100,
+        },
+        {
+          title: '状态',
+          key: 'status',
+          width: 100,
+        },
+        {
+          title: '操作',
+          key: 'action',
+          width: 90,
+          align: 'center',
+          render: (h, params) => {
+            return h('div', [
+              h('Button', {
+                props: {
+                  type: 'primary',
+                  size: 'small',
+                  icon: 'edit',
+                },
+                attrs: {
+                  title: '修改状态',
+                },
+                style: {
+                  'margin-left': '5px',
+                },
+                on: {
+                  click: () => {
+                    this.edit(params.row);
+                  },
+                },
+              }),
+            ]);
           },
-          {
-              title: '比赛项目',
-              key: 'level',
-          },
-          {
-              title: '状态',
-              key: 'status',
-          },
+        },
       ],
+      modalBtnLoading: false,
       timer: null,
       message: '',
       timeValue: 0,
@@ -305,7 +358,14 @@ export default {
       eqElectric: null,
       eqStatus:'',
       timer: null,
+      modalShow: false,
     };
+  },
+
+  computed: {
+    modalTitle() {
+      return '修改状态';
+    },
   },
   methods: {
     /*
@@ -436,7 +496,7 @@ export default {
       this.tableLoading = true;
       const address = currentAddress;
       console.log('address = ' + address);
-      const countSQL = `SELECT game_id,status from GAME_INFO WHERE address = '${address}' and blue_id <>'None' LIMIT 0, 5 `;
+      const countSQL = `SELECT game_id,round_num, blue_name||'vs'||red_name as people,level,status from GAME_INFO  WHERE address = '${address}' and blue_id <>'None' LIMIT 0, 5 `;
       this.$logger(countSQL);
       this.$db.all(countSQL, (err, res) => {
         if (err) {
@@ -523,6 +583,23 @@ export default {
       });
     },
 
+    // 编辑
+    edit(row) {
+      this.$refs.formVali.resetFields();
+      const ganme_id = row.game_id;
+      console.log(game_id);
+      this.modalParams = {
+        id: row.id,
+        name: row.name,
+        standard_buy_unit_price: row.standard_buy_unit_price,
+        standard_sell_unit_price: row.standard_sell_unit_price,
+        remark: row.remark,
+      };
+      this.modalShow = true;
+    },
+    editConfirm() {
+
+    },
     // 选择表格某一行事件
     chooseLine(index) {
       const gameId = index.game_id;
