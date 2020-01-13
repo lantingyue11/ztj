@@ -5,10 +5,10 @@
                 <Row>
                     <Col span="24">
                         <Row style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;}">
-                            <Col span="4"><span><Icon type="clipboard"  ></Icon>场次：{{address}}</span></Col>
-                            <Col span="4"><span><Icon type="ios-paper" />轮次：{{totalRound}}</span></Col>
-                            <Col span="4"><span><Icon type="grid" />局数：{{roundNum}}</span></Col>
-                            <Col span="10"><span><Icon type="podium" />级别：{{thisLevel}}</span></Col>
+                            <Col span="5"><span><Icon type="clipboard"  ></Icon>&nbsp;场次：{{address}}</span></Col>
+                            <Col span="5"><span><Icon type="ios-paper" />&nbsp;轮次：{{totalRound}}</span></Col>
+                            <Col span="5"><span><Icon type="grid" />&nbsp;局数：{{roundNum}}</span></Col>
+                            <Col span="7"><span><Icon type="podium" />&nbsp;级别：{{thisLevel}}</span></Col>
                         </Row>
                     </Col>
                 </Row>
@@ -33,32 +33,38 @@
                     </Col>
                     <Row >
                         <Col span="4" style="background: #1B3757">
-                            <div class="left-koufeng">
-                                <Row>
-                                    <Col span="12"><p>感应数&nbsp; &nbsp;<span><Tag color="#5F9EA0">2</Tag></span></p></Col>
-                                    <Col span="12"><span style="float: right">力度值</span></Col>
-                                </Row>
-
+                            <div class="left-koufeng p" >
+                                <p>感应数&nbsp;<Tag color="#5F9EA0">2</Tag></p>
                             </div>
                         </Col>
-                        <Col span="6"> <div class="grade1" id="blue_grade" style="background:#0157B9;color:white;">
+                        <Col span="6">
+                            <div class="grade1" id="blue_grade" style="background:#0157B9;color:white;">
                             {{blueGrade}}
-
-                        </div></Col>
+                            </div>
+                            <div style="background:#0157B9;color:white;height: 25px">
+                                <p style="text-align: center;font-size: 15px">45kg</p>
+                            </div>
+                        </Col>
 
                         <Col span="4" style="background: #26292E"><div class="vsSign"><p>VS</p></div>
                             <div class="timer" style="background: #3CB371;">
                                 <div class="clock_style">Round 1</div>
-                                <div class="timer_time"  style="color: black;" >
+                                <div class="timer_time"  style="color: white;margin-top: 7px" >
                                     {{timediff}}
                                 </div>
-                            </div></Col>
-                        <Col span="6"><div class="grade2" id="red_grade" style="background:#B80000;color:white;">
+                            </div>
+                        </Col>
+                        <Col span="6">
+                            <div class="grade2" id="red_grade" style="background:#B80000;color:white;">
                             {{redGrade}}
-                        </div></Col>
+                            </div>
+                            <div style="background:#B80000;color:white;height: 25px">
+                                <p style="text-align: center;font-size: 15px">45kg</p>
+                            </div>
+                        </Col>
                         <Col span="4" style="background: #521D20">
                             <div class="left-koufeng p" >
-                                <p>感应数&nbsp; &nbsp;<span><Tag color="#EEA2AD">2</Tag></span></p>
+                                <p>感应数&nbsp;<span><Tag color="#EEA2AD">2</Tag></span></p>
                             </div>
                         </Col>
                     </Row>
@@ -69,7 +75,7 @@
                                 <p style="text-align: center">GAM-JEOM</p>
                                 <p style="text-align: center;font-size: 18px">{{blueGam}}</p>
                             </Col>
-                            <Col span="6" style="font-size: 18px;"><span :style="{'background' : eqStatus === '01' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 5px;left: 12px"></span><img class="round_bg" src='../../imgs/ltou.png' style="margin-top:10px;"><span style="margin-top:32px;position: absolute;font-size: 18px;">0</span></Col>
+                            <Col span="6" style="font-size: 18px;"><span :style="{'background' : eqStatus === '01' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 5px;left: 12px"></span><img class="round_bg" src='../../imgs/ltou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
                             <Col span="6" style="font-size: 18px;"><span :style="{'background' : eqStatus === '01' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 5px;left: 14px"></span><img class="round_bg" src='../../imgs/lshen.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
                             <Col span="6" style="font-size: 18px;"><span :style="{'background' : eqStatus === '01' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 5px;left: 16px"></span><img class="round_bg" src='../../imgs/lshou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
                         </Row>
@@ -107,7 +113,7 @@
                     </Col>
                 </Row>
             </Col>
-            <Col span="12" style="{display: block;  background: #fff; border-radius: 5px;height: 425px;}">
+            <Col span="12" style="{display: block;  background: #fff; border-radius:5px;height: 442px;}">
                 <Row >
                     <Col span="24">
                         <Form :label-width="90" inline>
@@ -244,11 +250,11 @@
                             <Col span="12"><span>设备电量</span></Col>
                             <Col span="4"><span>设备状态</span></Col>
                         </Row>
-                            <Row style="margin-top: 5px">
-                                <Col span="8"><span>护具</span></Col>
-                                <Col span="12"><Vbattery v-if="showImg" :img="eqElectric" :height="30"></Vbattery></Col>
-                                <Col span="4"><span>正在运行</span></Col>
-                            </Row>
+                        <Row style="margin-top: 5px">
+                            <Col span="8"><span>护具</span></Col>
+                            <Col span="12"><Vbattery v-if="showImg" :img="eqElectric" :height="30"></Vbattery></Col>
+                            <Col span="4"><span>正在运行</span></Col>
+                        </Row>
                         <Row style="margin-top: 5px">
                             <Col span="8"><span>护具</span></Col>
                             <Col span="12"><Vbattery v-if="showImg" :img="eqElectric" :height="30"></Vbattery></Col>
@@ -521,7 +527,7 @@ export default {
       this.tableLoading = true;
       const address = currentAddress;
       console.log('address = ' + address);
-      const countSQL = `SELECT game_id,round_num, blue_name||'vs'||red_name as people,level,status from GAME_INFO  WHERE address = '${address}' and blue_id <>'None' LIMIT 0, 5 `;
+      const countSQL = `SELECT game_id,round_num, blue_name||'vs'||red_name as people,level,status from GAME_INFO  WHERE address = '${address}' and blue_id <>'None' LIMIT 0, 6 `;
       this.$logger(countSQL);
       this.$db.all(countSQL, (err, res) => {
         if (err) {
@@ -1064,12 +1070,13 @@ export default {
         margin-top: -10px;
     }
     .left-koufeng{
-        margin-top: 189px;
+        margin-top: 194px;
     }
     .left-koufeng p{
         color: white;
         font-size: 13px;
         text-align: center;
+        padding:10px 0px;
     }
 
 </style>
