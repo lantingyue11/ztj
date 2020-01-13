@@ -34,17 +34,13 @@
                     <Row >
                         <Col span="4" style="background: #1B3757">
                             <div class="left-koufeng">
-                                <Row>
-                                    <Col span="12"><p>感应数&nbsp; &nbsp;<span><Tag color="#5F9EA0">2</Tag></span></p></Col>
-                                    <Col span="12"><span style="float: right">力度值</span></Col>
-                                </Row>
-
+                                  <p>感应数&nbsp; &nbsp;<span><Tag color="#5F9EA0">2</Tag></span></p>
                             </div>
                         </Col>
                         <Col span="6"> <div class="grade1" id="blue_grade" style="background:#0157B9;color:white;">
                             {{blueGrade}}
-
-                        </div></Col>
+                        </div>
+                        </Col>
 
                         <Col span="4" style="background: #26292E"><div class="vsSign"><p>VS</p></div>
                             <div class="timer" style="background: #3CB371;">
