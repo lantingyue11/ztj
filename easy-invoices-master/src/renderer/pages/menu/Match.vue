@@ -1,16 +1,15 @@
 <template>
     <div>
-        <Row>
-            <Col span="16">
+        <Row >
+            <Col span="12">
                 <Row>
                     <Col span="24">
-                        <Row style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;}">
-                            <Col span="6"><span><Icon type="clipboard"  ></Icon>&nbsp;&nbsp;场次：{{address}}</span></Col>
-                            <Col span="6"><span><Icon type="ios-paper" />&nbsp;&nbsp;轮次：{{totalRound}}</span></Col>
-                            <Col span="6"><span><Icon type="grid" />&nbsp;&nbsp;局数：{{roundNum}}</span></Col>
-                            <Col span="6"><span><Icon type="podium" />&nbsp;&nbsp;级别：{{thisLevel}}</span></Col>
+                        <Row style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;}">
+                            <Col span="4"><span><Icon type="clipboard"  ></Icon>场次：{{address}}</span></Col>
+                            <Col span="4"><span><Icon type="ios-paper" />轮次：{{totalRound}}</span></Col>
+                            <Col span="4"><span><Icon type="grid" />局数：{{roundNum}}</span></Col>
+                            <Col span="10"><span><Icon type="podium" />级别：{{thisLevel}}</span></Col>
                         </Row>
-
                     </Col>
                 </Row>
                 <Row>
@@ -18,26 +17,23 @@
                         <p id="showMessage">{{message}}</p>
                     </Col>
                 </Row>
-                <Row style="{padding: 1px;  background: #26292E; border-radius: 1px;margin: 0px;height: 340px;}">
+                <Row style="{padding: 1px;  background: #26292E; border-radius: 1px;height: 348px;}">
                     <Col span="12" >
                         <div class="userName1" style="background: #232D3A;margin-top: -2px;line-height: 50px;border:0.5px solid #666666;">
-                            <Avatar icon="ios-person" size="large" style="margin-left: -120px"/>
+                            <Avatar icon="ios-person" size="large" style="margin-left: -90px"/>
                             <span style="padding-left:80px">{{blueName}}</span>
                         </div>
-
                     </Col>
                     <Col span="12">
                         <div class="userName2" style="background:#33252A;color:white;margin-top: -2px;line-height: 50px;border:0.5px solid #666666;">
                             <span style="padding-right:90px">{{redName}}</span>
-                            <Avatar icon="ios-person" size="large" style="margin-right: -110px"/>
+                            <Avatar icon="ios-person" size="large" style="margin-right: -85px"/>
                         </div>
 
                     </Col>
-
                     <Row >
                         <Col span="4" style="background: #1B3757">
                             <div class="left-koufeng">
-                                <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="#5F9EA0">1</Tag></span></p>
                                 <p>感应数&nbsp; &nbsp;<span><Tag color="#5F9EA0">2</Tag></span></p>
                             </div>
                         </Col>
@@ -57,67 +53,61 @@
                         </div></Col>
                         <Col span="4" style="background: #521D20">
                             <div class="left-koufeng p" >
-                                <p>扣&nbsp;&nbsp;&nbsp; 分&nbsp;&nbsp;<span><Tag color="#EEA2AD">1</Tag></span></p>
                                 <p>感应数&nbsp; &nbsp;<span><Tag color="#EEA2AD">2</Tag></span></p>
                             </div>
                         </Col>
                     </Row>
-              <!-- <row>
-
-               </row>-->
 
                     <Col span="12" style="background: #1B3757;color:white;border: 1px solid #666666;margin-top: 30px;margin-top: 1px;height:75px; ">
-                        <Row>
+                        <Row style="position: relative;">
                             <Col span="6">
                                 <p style="text-align: center">GAM-JEOM</p>
-                                <p style="text-align: center">{{blueGam}}</p>
+                                <p style="text-align: center;font-size: 18px">{{blueGam}}</p>
                             </Col>
-                            <Col span="6">
-                                头部
-                            </Col>
-                            <Col span="6">
-                                身体
-                            </Col>
-                            <Col span="6">
-                                手部
-                            </Col>
+                            <Col span="6" style="font-size: 18px;"><span :style="{'background' : eqStatus === '01' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 10px;left: 12px"></span><img class="round_bg" src='../../imgs/ltou.png' style="margin-top:18px;"><span style="margin-top:32px;position: absolute;font-size: 18px;">0</span></Col>
+                            <Col span="6" style="font-size: 18px;"><img class="round_bg" src='../../imgs/lshen.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
+                            <Col span="6" style="font-size: 18px;"><img class="round_bg" src='../../imgs/lshou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
                         </Row>
                     </Col>
                     <Col span="12" style="background:#521D20;color:white;border: 1px solid #666666;margin-top: 30px;margin-top: 1px;height:75px">
-                        <Row>
-                            <Col span="6">头部</Col>
-                            <Col span="6">身体</Col>
-                            <Col span="6">手部</Col>
+                        <Row style="position: relative;" >
+                            <Col span="6"><img class="round_bg" src='../../imgs/tou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
+                            <Col span="6"><img class="round_bg" src='../../imgs/shen.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
+                            <Col span="6"><img class="round_bg" src='../../imgs/shou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
                             <Col span="6">
                                 <p style="text-align: center">GAM-JEOM</p>
-                                <p style="text-align: center">{{redGam}}</p>
+                                <p style="text-align: center;font-size: 18px">{{redGam}}</p>
                             </Col>
                         </Row>
                     </Col>
                 </Row>
-                <Row style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;}">
+                <Row style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;}">
                     <Col span="11">
-                        <Button>读秒</Button>
-                        <Button @click="countdown('showMessage',10)">休息计时</Button>
-                        <Button @click="nextMatch">下一局</Button>
+                        <Row style="text-align: center">
+                            <Col span="6"><Button>读秒</Button></Col>
+                            <Col span="10"> <Button @click="countdown('showMessage',10)">休息计时</Button></Col>
+                            <Col span="8"><Button @click="nextMatch">下一局</Button></Col>
+                        </Row>
                     </Col>
-                    <Col span="4">
+                    <Col span="3">
                         <Button type="primary" @click="created">{{startBtn}}</Button>
                     </Col>
-                    <Col span="9">
-                        <Button>加时</Button>
-                        <Button @click="countdown('showMessage',60)">60s计时</Button>
-                        <Button>结束</Button>
+                    <Col span="10">
+                        <Row style="text-align: center">
+                            <Col span="7"><Button>加时</Button></Col>
+                            <Col span="10"><Button @click="countdown('showMessage',60)">60s计时</Button></Col>
+                            <Col span="7"> <Button>结束</Button></Col>
+                        </Row>
+
                     </Col>
                 </Row>
-
             </Col>
-            <Col span="7" style="{display: block;padding: 5px;  background: #fff; border-radius: 5px;margin: 3px;height: 425px;}">
-                <Row>
+            <Col span="12" style="{display: block;  background: #fff; border-radius: 5px;height: 425px;}">
+                <Row >
                     <Col span="24">
-                        <Form :label-width="90" inline >
-                            <FormItem label="场地选择">
-                                <Select v-model="currentAddress" style="width:150px;" placeholder="请选择场地过滤" @on-change="changeAddress" clearable
+                        <Form :label-width="90" inline>
+                            <FormItem label="场地选择" style="margin-bottom: 10px;margin-top: 5px;height: 42px;line-height: 42px">
+                                <Select v-model="currentAddress" style="display: inline-block;width:36vw;padding: 0 5px;font-size: 20px" placeholder="请选择场地过滤" @on-change="changeAddress" clearable
                                         filterable>
                                     <Option v-for="(item,index) in addressList" :value="item.address" :key="index">{{item.address}} 场次
                                     </Option>
@@ -129,16 +119,12 @@
                 <Row>
                     <Table border :columns="columns1" :data="dataList" :loading="tableLoading" @on-row-dblclick="chooseLine"></Table>
                 </Row>
-                <Row style="margin-top: 40px;">
-                    <Button type="warning" @click="showScreen">投屏</Button>
-                    <Button type="info" style="margin-left: 110px" @click="testConnect">连接测试</Button>
-                </Row>
             </Col>
         </Row>
-        <Row>
-            <Col span="16" style="{display: block;padding: 2px;  background: #fff; border-radius: 5px;margin-top: 2px;margin-left: 3px;height: 200px;}">
-                <Row class="team_grade">
-                    <Col span="11">
+        <Row >
+            <Col span="12" style="{display: block;padding: 20px 2px;  background: #fff; border-radius: 5px;margin-top: 2px;margin-left: 3px;height: 200px;}">
+                <Row style="text-align: center;">
+                    <Col span="12">
                         <div>
                             <Dropdown @on-click="blueWinBth">
                                 <Button type="primary">
@@ -161,14 +147,24 @@
                                 </DropdownMenu>
                             </Dropdown>
                         </div>
-                        <div style="margin-top: 10px;">
+                        <row style="text-align: center;margin-top: 10px">
+                            <Col span="6"><Button @click="addPoint('red')">+</Button></Col>
+                            <Col span="12" style="background:#2d8cf0;height: 36px;line-height: 36px;color: white">扣分</Col>
+                            <Col span="6"><Button @click="devicePoint('red')">-</Button></Col>
+                        </row>
+                        <row style="text-align: center;margin-top: 10px">
+                            <Col span="6"><Button @click="addPoint('red')">+</Button></Col>
+                            <Col span="12" style="background:#2d8cf0;height: 36px;line-height: 36px;color: white">加分</Col>
+                            <Col span="6"><Button @click="devicePoint('red')">-</Button></Col>
+                        </row>
+                        <!--<div style="margin-top: 10px;">
                             <ButtonGroup >
                                 <Button @click="devicePoint('blue')">
                                     -
                                     &nbsp;&nbsp;扣分
                                 </Button>
                                 <Button @click="addPoint('blue')">
-                                    加分&nbsp;&nbsp;
+                                    扣分&nbsp;&nbsp;
                                     +
                                 </Button>
                             </ButtonGroup>
@@ -176,13 +172,12 @@
                         <div style="margin-top: 10px;">
                             <Button type="warning"  @click="addWarning('blue')">警告</Button>
                             <Button type="success" @click="deleteWarning('blue')">撤销警告</Button>
-                        </div>
+                        </div>-->
                     </Col>
-                    <Col span="2"></Col>
-                    <Col span="11">
-                        <div style="float: right;width: 100%;">
-                            <Dropdown style="margin-left: 177px" @on-click="redWinBth">
-                                <Button type="error">
+                    <Col span="12">
+                        <div style="width: 100%;">
+                            <Dropdown style="" @on-click="redWinBth">
+                                <Button type="error" style="background: #F08080 !important;;border-color: #F08080 !important;">
                                     红方判胜
                                     <Icon type="ios-arrow-down"></Icon>
                                 </Button>
@@ -202,36 +197,50 @@
                                 </DropdownMenu>
                             </Dropdown>
                         </div >
-                        <div style="float: right;margin-top: 10px;">
+                        <row style="text-align: center;margin-top: 10px">
+                            <Col span="6"><Button @click="addPoint('red')">+</Button></Col>
+                            <Col span="12" style="background: #F08080;height: 36px;line-height: 36px;color: white">扣分</Col>
+                            <Col span="6"><Button @click="devicePoint('red')">-</Button></Col>
+                        </row>
+
+                        <row style="text-align: center;margin-top: 10px">
+                            <Col span="6"><Button @click="addPoint('red')">+</Button></Col>
+                            <Col span="12" style="background: #F08080;height: 36px;line-height: 36px;color: white">加分</Col>
+                            <Col span="6"><Button @click="devicePoint('red')">-</Button></Col>
+
+                        </row>
+                    <!--    <div style="float: right;margin-top: 10px;">
                             <ButtonGroup >
-                                <Button @click="devicePoint('red')">-&nbsp;&nbsp;扣分</Button>
-                                <Button @click="addPoint('red')">加分&nbsp;&nbsp;+</Button>
+                                <Button @click="addPoint('red')">&nbsp;&nbsp;+</Button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>扣分</span>
+                               &lt;!&ndash; <Button @click="devicePoint('red')">-&nbsp;&nbsp;</Button>&ndash;&gt;
                             </ButtonGroup>
-                        </div>
-                        <br>
+                        </div>-->
+                      <!--  <br>
                         <div style="float: right;margin-top: 10px;">
                             <Button type="warning"  @click="addWarning('red')">警告</Button>
                             <Button type="success" @click="deleteWarning('red')">撤销警告</Button>
-                        </div>
+                        </div>-->
                     </Col>
                 </Row>
+                <row style="text-align: center;margin-top: 10px">
+                    <Col span="12"><Button type="warning" @click="showScreen">投屏</Button></Col>
+                    <Col span="12"><Button type="warning"  @click="test">连接测试</Button></Col>
+
+                </row>
             </Col>
-            <Col span="7" style="{display: block;padding: 3px;  background: #fff; border-radius: 5px;margin-top: 2px;margin-left: 2px;height: 200px;}">
-               护具电量显示
-                <br><br>
-                <Row>
-                    <Col span="12" style="margin-left: calc((100% - 240px) / 2);">
-                        <i-circle :percent="60" dashboard>
-                            <span class="demo-circle-inner" style="font-size:14px">青方80%</span>
-                        </i-circle>
-                    </Col>
-                    <Col span="12" >
-                        <i-circle :percent="60" stroke-color="#ff5500"  dashboard>
-                            <span class="demo-circle-inner" style="font-size:14px">红方60%</span>
-                        </i-circle>
-                    </Col>
-                </Row>
-            </Col>
+            <row style="height: 200px">
+                <Layout>
+                    <Header align="center" style="{display: block;padding: 3px; background: #04172a; margin-top: 2px;height:45px; line-height:45px;font-size: 15px;color: white;}">设备电量显示</Header>
+                    <Footer style="height: 155px">
+                        <Vbattery v-if="showImg" :img="eqElectric" :height="50"></Vbattery>
+                        <Vbattery v-if="showImg" :img="eqElectric" :height="50"></Vbattery>
+
+                    </Footer>
+                </Layout>
+
+            </row>
         </Row>
 
     </div>
@@ -240,19 +249,35 @@
 </template>
 <script>
 import SerialPort from 'serialport';
+import Caspanel from "iview/src/components/cascader/caspanel";
+import Vbattery from './../../components/battery.vue';
 export default {
-  data() {
+    components: {Caspanel,Vbattery},
+    data() {
     return {
+        showImg: false,
       show: false,
       columns1: [
         {
-          title: '序号',
+          title: '场次',
           key: 'game_id',
         },
         {
-          title: '状态',
-          key: 'status',
+          title: '进程',
+          key: 'total_round',
         },
+          {
+              title: '参赛方',
+              key: 'blue_name' + '&&' +'red_name',
+          },
+          {
+              title: '比赛项目',
+              key: 'level',
+          },
+          {
+              title: '状态',
+              key: 'status',
+          },
       ],
       timer: null,
       message: '',
@@ -277,6 +302,9 @@ export default {
       totalRound: '',
       roundNum: '',
       currentGameId: '',
+      eqElectric: null,
+      eqStatus:'',
+      timer: null,
     };
   },
   methods: {
@@ -582,7 +610,7 @@ export default {
           });
       },
       // 测试设备链接状态
-      testConnect(obj) {
+      testConnectt(obj) {
           const that = obj;
           alert("测试设备");
           const serialPort = new SerialPort(
@@ -608,7 +636,112 @@ export default {
           });
 
       },
-    // 十进制转16进制
+
+      // 测试设备链接状态wifi
+      testConnect() {
+          // 1 引入模块
+          const net = require('net');
+         // 2 创建服务器
+          let clientArr = [];
+          const server = net.createServer();
+         // 3 绑定链接事件
+          server.on('connection',(person)=>{
+          console.log(clientArr.length);
+         // 记录链接的进程
+          person.id = clientArr.length;
+          clientArr.push(person);
+          person.setEncoding('utf8');
+         // 客户socket进程绑定事件
+          person.on('data',(chunk)=>{
+          clientArr.forEach((val)=>{
+         // 数据写入全部客户进程
+          console.log(chunk);
+          console.log(this.stringToHex(chunk.toString()));
+         })
+            })
+           person.on('close',(p1)=>{
+           clientArr[p1.id] = null;
+         } )
+           person.on('error',(p1)=>{
+           clientArr[p1.id] = null;
+              })
+          })
+          server.listen(8080);
+          console.log('监听端口');
+      },
+
+      test (obj) {
+        // 重复刷新设备连接信息
+        this.timer = setInterval(()=>{
+              const net = require('net');
+              const that =obj;
+              //创建一个tcp服务
+              //参数一表示创建服务的一些配置
+              //参数二表示 事件 'connection' 监听回调函数
+              let server = net.createServer({
+                  //表示是否允许一个半开的TCP连接，默认为false
+                  allowHalfOpen: false,
+                  //一旦来了连接，是否暂停套接字，默认为false
+                  pauseOnConnect: false
+              });
+              console.log('1111');
+              server.listen(8080);
+
+              //一个新的连接建立时触发 'connection' 事件
+              server.on('connection', function (socket) {
+                  //注意这里的socket是一个流，既可以读，也可以写
+                  //当我们监听 'data' 事件后，系统就会不断的从流中读取数据
+                  socket.on('data', function (data) {
+                      console.log(data);
+                      let array = [];
+
+                      for (let i = 0; i < data.byteLength; i++) {
+                          array[i] = data[i];
+                      }
+                      console.log(array);
+                      const newArray = that.transferToSixteen(array);
+                      // console.log(value);
+                      console.log(newArray);
+                  });
+              });
+
+              //服务调用 server.listen() 监听后就会触发该事件
+              server.on('listening', function () {
+                  // address() 方法返回服务器地址信息对象
+                  let addr = server.address();
+                  console.log(`服务器监听 : ${addr.port} 端口`);
+              });
+
+              //服务关闭时触发，如果还有连接存在，则直到所有连接结束才会触发该事件
+              server.on('close', function () {
+                  console.log('服务关闭');
+              });
+
+              //出现错误时触发
+              server.on('error', function (err) {
+                  console.log(err);
+              });
+          },15000);
+          this.$once('hook:beforeDestroy', () => { clearInterval(this.timer); })
+
+
+      },
+
+        //字符出转hex
+     stringToHex(data) {
+        let strs = data;
+         const ar = [];
+         for (let i = 0; i < strs.length; i++) {
+             let a = '';
+             a = strs.charCodeAt(i).toString(16);
+             ar.push(a);
+         }
+         strs = ar.join("");
+     //    console.log(strs);
+          return strs;
+    },
+
+// 十进制转16进制
     transferToSixteen(data) {
       console.log('start transfer to sisteen');
       const newArray = data.map(item => {
@@ -672,7 +805,8 @@ export default {
             console.log('按键按下');
         }
       // 设备电量
-      const electric = that.transformTen(data[11]);
+      const electric = parseInt(that.transformTen(data[11])/20);
+        this.eqElectric = electric;
         if ( object === '01') {
             console.log('脚套芯片电量');
         }else if ( object === '02') {
@@ -754,7 +888,9 @@ export default {
             console.log('1号打分器心跳包');
         }
         // 设备状态
-        const  status = data[12];
+     //   const  status = data[12];
+        const  status = '01';
+        this.eqStatus = status;
         if (status === '01') {
             console.log('设备空闲，未接入护具');
         } else if (status === '02') {
@@ -764,12 +900,17 @@ export default {
         }
     },
 
+
   },
   created() {
+    this.showImg = true;
     this.getAddressInfo();
     this.initData();
     this.update();
     this.receivePortMsg(this);
+    this.eqElectric = 3;
+  //this.testConnect();
+  //  this.test(this);
   },
 };
 
@@ -854,15 +995,12 @@ export default {
         margin-top: -10px;
     }
     .left-koufeng{
-        margin-top: 163px;
+        margin-top: 189px;
     }
     .left-koufeng p{
         color: white;
-        font-size: 16px;
+        font-size: 13px;
         text-align: center;
     }
-    .team_grade{
-        margin-left: 20px;
-        margin-top: 40px;
-    }
+
 </style>
