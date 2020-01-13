@@ -34,11 +34,16 @@
                     <Row >
                         <Col span="4" style="background: #1B3757">
                             <div class="left-koufeng">
-                                <p>感应数&nbsp; &nbsp;<span><Tag color="#5F9EA0">2</Tag></span></p>
+                                <Row>
+                                    <Col span="12"><p>感应数&nbsp; &nbsp;<span><Tag color="#5F9EA0">2</Tag></span></p></Col>
+                                    <Col span="12"><span style="float: right">力度值</span></Col>
+                                </Row>
+
                             </div>
                         </Col>
                         <Col span="6"> <div class="grade1" id="blue_grade" style="background:#0157B9;color:white;">
                             {{blueGrade}}
+
                         </div></Col>
 
                         <Col span="4" style="background: #26292E"><div class="vsSign"><p>VS</p></div>
@@ -64,16 +69,16 @@
                                 <p style="text-align: center">GAM-JEOM</p>
                                 <p style="text-align: center;font-size: 18px">{{blueGam}}</p>
                             </Col>
-                            <Col span="6" style="font-size: 18px;"><span :style="{'background' : eqStatus === '01' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 10px;left: 12px"></span><img class="round_bg" src='../../imgs/ltou.png' style="margin-top:18px;"><span style="margin-top:32px;position: absolute;font-size: 18px;">0</span></Col>
-                            <Col span="6" style="font-size: 18px;"><img class="round_bg" src='../../imgs/lshen.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
-                            <Col span="6" style="font-size: 18px;"><img class="round_bg" src='../../imgs/lshou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
+                            <Col span="6" style="font-size: 18px;"><span :style="{'background' : eqStatus === '01' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 5px;left: 12px"></span><img class="round_bg" src='../../imgs/ltou.png' style="margin-top:10px;"><span style="margin-top:32px;position: absolute;font-size: 18px;">0</span></Col>
+                            <Col span="6" style="font-size: 18px;"><span :style="{'background' : eqStatus === '01' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 5px;left: 14px"></span><img class="round_bg" src='../../imgs/lshen.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
+                            <Col span="6" style="font-size: 18px;"><span :style="{'background' : eqStatus === '01' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 5px;left: 16px"></span><img class="round_bg" src='../../imgs/lshou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
                         </Row>
                     </Col>
                     <Col span="12" style="background:#521D20;color:white;border: 1px solid #666666;margin-top: 30px;margin-top: 1px;height:75px">
                         <Row style="position: relative;" >
-                            <Col span="6"><img class="round_bg" src='../../imgs/tou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
-                            <Col span="6"><img class="round_bg" src='../../imgs/shen.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
-                            <Col span="6"><img class="round_bg" src='../../imgs/shou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
+                            <Col span="6"><span :style="{'background' : eqStatus === '01' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 8px;left: 18px"></span><img class="round_bg" src='../../imgs/tou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
+                            <Col span="6"><span :style="{'background' : eqStatus === '01' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 8px;left: 18px"></span><img class="round_bg" src='../../imgs/shen.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
+                            <Col span="6"><span :style="{'background' : eqStatus === '01' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 8px;left: 20px"></span><img class="round_bg" src='../../imgs/shou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">0</span></Col>
                             <Col span="6">
                                 <p style="text-align: center">GAM-JEOM</p>
                                 <p style="text-align: center;font-size: 18px">{{redGam}}</p>
@@ -234,9 +239,26 @@
                 <Layout>
                     <Header align="center" style="{display: block;padding: 3px; background: #04172a; margin-top: 2px;height:45px; line-height:45px;font-size: 15px;color: white;}">设备电量显示</Header>
                     <Footer style="height: 155px">
-                        <Vbattery v-if="showImg" :img="eqElectric" :height="50"></Vbattery>
-                        <Vbattery v-if="showImg" :img="eqElectric" :height="50"></Vbattery>
-
+                        <Row style="font-size: 28px;margin-top: -22px;height: 40px">
+                            <Col span="8"><span>设备名称</span></Col>
+                            <Col span="12"><span>设备电量</span></Col>
+                            <Col span="4"><span>设备状态</span></Col>
+                        </Row>
+                            <Row style="margin-top: 5px">
+                                <Col span="8"><span>护具</span></Col>
+                                <Col span="12"><Vbattery v-if="showImg" :img="eqElectric" :height="30"></Vbattery></Col>
+                                <Col span="4"><span>正在运行</span></Col>
+                            </Row>
+                        <Row style="margin-top: 5px">
+                            <Col span="8"><span>护具</span></Col>
+                            <Col span="12"><Vbattery v-if="showImg" :img="eqElectric" :height="30"></Vbattery></Col>
+                            <Col span="4"><span>正在运行</span></Col>
+                        </Row>
+                        <Row style="margin-top: 5px">
+                            <Col span="8"><span>护具</span></Col>
+                            <Col span="12"><Vbattery v-if="showImg" :img="eqElectric" :height="30"></Vbattery></Col>
+                            <Col span="4"><span>正在运行</span></Col>
+                        </Row>
                     </Footer>
                 </Layout>
 
@@ -302,8 +324,11 @@ export default {
       totalRound: '',
       roundNum: '',
       currentGameId: '',
+      // 设备电量
       eqElectric: null,
-      eqStatus:'',
+      // 设备状态
+      eqStatus:'01',
+      // 定时刷新
       timer: null,
     };
   },
@@ -637,39 +662,6 @@ export default {
 
       },
 
-      // 测试设备链接状态wifi
-      testConnect() {
-          // 1 引入模块
-          const net = require('net');
-         // 2 创建服务器
-          let clientArr = [];
-          const server = net.createServer();
-         // 3 绑定链接事件
-          server.on('connection',(person)=>{
-          console.log(clientArr.length);
-         // 记录链接的进程
-          person.id = clientArr.length;
-          clientArr.push(person);
-          person.setEncoding('utf8');
-         // 客户socket进程绑定事件
-          person.on('data',(chunk)=>{
-          clientArr.forEach((val)=>{
-         // 数据写入全部客户进程
-          console.log(chunk);
-          console.log(this.stringToHex(chunk.toString()));
-         })
-            })
-           person.on('close',(p1)=>{
-           clientArr[p1.id] = null;
-         } )
-           person.on('error',(p1)=>{
-           clientArr[p1.id] = null;
-              })
-          })
-          server.listen(8080);
-          console.log('监听端口');
-      },
-
       test (obj) {
         // 重复刷新设备连接信息
         this.timer = setInterval(()=>{
@@ -888,8 +880,8 @@ export default {
             console.log('1号打分器心跳包');
         }
         // 设备状态
-     //   const  status = data[12];
-        const  status = '01';
+        const  status = data[12];
+     //   const  status = '01';
         this.eqStatus = status;
         if (status === '01') {
             console.log('设备空闲，未接入护具');
