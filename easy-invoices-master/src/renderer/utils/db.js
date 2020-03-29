@@ -109,6 +109,38 @@ db.serialize(() => {
     )`, err => {
     logger(err);
   });
+
+  /**
+   * 当前状态值保存表 CURRENTSTATUS_INFO
+   */
+  db.run(`CREATE TABLE CURRENTSTATUS_INFO(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    game_id VARCHAR(25),
+    total_round INTEGER,
+    round_num VARCHAR(25),
+    address VARCHAR(255),
+    address_id VARCHAR(20),
+    level VARCHAR(25),
+    blue_name VARCHAR(255),
+    red_name VARCHAR(255),
+    status VARCHAR(25),
+    blue_score INTEGER,
+    red_score INTEGER,
+    blue_grade VARCHAR(25),
+    red_grade VARCHAR(25),
+    blue_power VARCHAR(25),
+    red_power VARCHAR(25),
+    blue_casque_recation INTEGER,
+    red_casque_recation  INTEGER,
+    blue_reaction INTEGER,
+    red_reaction INTEGER,
+    blue_gam  INTEGER,
+    red_gam  INTEGER,
+    game_name VARCHAR(255),
+    remark VARCHAR(255)
+    )`, err => {
+    logger(err);
+  });
 });
 
 export default db;

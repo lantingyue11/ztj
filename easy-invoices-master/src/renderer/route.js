@@ -8,6 +8,12 @@ for (const menu of menus) {
 }
 
 childrenRoutes.push({
+  path: 'test',
+  component: () => import('@/pages/menu/Test.vue'),
+  meta: {
+    tile: '测试'
+  }
+},{
   path: '*',
   redirect: menus[ 0 ].path,
 });
@@ -17,8 +23,7 @@ const routes = [
     path: '/',
     component: Home,
     children: childrenRoutes,
-  },
-
+  }
 ];
 
 export default routes;
