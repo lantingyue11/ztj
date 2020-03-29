@@ -1,7 +1,7 @@
 <template>
     <div style="padding: 10px;background: #f8f8f9">
         <h1>竞赛设置</h1>
-        <div class="setting-panel">
+       <!-- <div class="setting-panel">
             <h3>比赛队伍设置</h3>
             <br>
             <Form :model="formItem" :label-width="80">
@@ -45,7 +45,7 @@
                     <Button style="margin-left: 8px">重置</Button>
                 </FormItem>
             </Form>
-        </div>
+        </div>-->
         <br>
         <div class="setting-panel">
         <h3>比赛设置</h3>
@@ -180,6 +180,7 @@ export default {
         pointNum: '',
         redHead: ''
       },
+        gamaName:'',
       ruleValidate: {
         inning: [
           { required: true, message: '请输入内容' }
@@ -236,6 +237,7 @@ export default {
           { required: true, message: '请输入内容' }
         ]
       },
+
     };
   },
   methods: {
@@ -255,6 +257,8 @@ export default {
         /* Get first worksheet */
         const wsname = wb.SheetNames[0];
         const ws = wb.Sheets[wsname];
+        this.gamaName = wsname;
+        console.log(this.gamaName);
         /* Convert array of arrays */
         const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
         /* Update state */
@@ -279,8 +283,9 @@ export default {
         const red_name = data[i][11];
         const red_unit = data[i][12];
         const status = data[i][13];
-        const insertSQL = `INSERT INTO GAME_INFO (game_id,total_round,round_num,address,address_id,level,blue_id,blue_name,blue_unit,red_id,red_name,red_unit,status)
-          VALUES ('${game_id}','${total_round}','${round_num}','${address}','${address_id}','${level}','${blue_id}','${blue_name}','${blue_unit}','${red_id}','${red_name}','${red_unit}','${status}')`;
+        const remark = this.gamaName;
+        const insertSQL = `INSERT INTO GAME_INFO (game_id,total_round,round_num,address,address_id,level,blue_id,blue_name,blue_unit,red_id,red_name,red_unit,status,remark)
+          VALUES ('${game_id}','${total_round}','${round_num}','${address}','${address_id}','${level}','${blue_id}','${blue_name}','${blue_unit}','${red_id}','${red_name}','${red_unit}','${status}','${remark}')`;
         this.insertData(insertSQL);
       }
       this.$db.run('COMMIT');

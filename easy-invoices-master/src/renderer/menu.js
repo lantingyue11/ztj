@@ -4,7 +4,7 @@ import Match from './pages/menu/Match.vue';
 import Setting from './pages/menu/Setting.vue';
 
 const menu = [
-  {
+ /* {
     icon: 'cube',
     title: '成绩录入',
     path: '/goods',
@@ -15,7 +15,7 @@ const menu = [
     title: '成绩查询',
     path: '/detailList',
     component: DetailList,
-  },
+  },*/
   {
     icon: 'grid',
     title: '比赛',
