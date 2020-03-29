@@ -45,7 +45,8 @@
 
                             <div style="height: 45px"></div>
                         </Col>
-                        <Col span="6"> <div class="grade1" id="blue_grade" style="background:#0157B9;color:white;">
+                        <Col span="6">
+                            <div class="grade1" id="blue_grade" style="background:#0157B9;color:white;">
                             {{blueGrade}}
                         </div>
                             <div style="background:#0157B9;color:white;height: 25px">
@@ -94,6 +95,7 @@
                             <Col span="6" style="font-size: 18px;"><span :style="{'background' : buleCasqueStatus === '1' ? '#fff' :buleCasqueStatus === '2' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 5px;left: 12px"></span><img class="round_bg" src='../../imgs/ltou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">{{buleCasqueRecation}}</span></Col>
                             <Col span="6" style="font-size: 18px;"><span :style="{'background' : buleCasqueStatus === '1' ? '#fff' :buleCasqueStatus === '2' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 5px;left: 14px"></span><img class="round_bg" src='../../imgs/lshen.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">{{blueReaction}}</span></Col>
                             <Col span="6" style="font-size: 18px;"><span :style="{'background' : eqStatus === '1' ? '#fff' :eqStatus === '02' ? 'green' : 'red'}" style="background: white;display: inline-block;width: 8px;height: 8px;border-radius: 50%;position: absolute;top: 5px;left: 16px"></span><img class="round_bg" src='../../imgs/lshou.png' style="margin-top:10px;"><span style="margin-top:24px;position: absolute;font-size: 18px;">{{buleScore}}</span></Col>
+
                         </Row>
                     </Col>
                     <Col span="12" style="background:#521D20;color:white;border: 1px solid #666666;margin-top: 30px;margin-top: 1px;height:75px">
@@ -122,7 +124,7 @@
                     </Col>
                 </Row>
             </Col>
-            <Col span="12" style="{display: block;  background: #fff; border-radius: 5px;height: 425px;}">
+            <Col span="12" style="{display: block;  background: #fff; border-radius:5px;height: 442px;}">
                 <Row >
                     <Col span="24">
                         <Form :label-width="90" inline>
@@ -1802,6 +1804,7 @@
         color: white;
         font-size: 13px;
         text-align: center;
+        padding:10px 0px;
     }
 
 </style>
